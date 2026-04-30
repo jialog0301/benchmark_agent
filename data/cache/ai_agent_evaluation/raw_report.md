@@ -4,7 +4,7 @@
 - topic: AI Agent Evaluation Benchmark
 - mode: ????
 - topic_type: agent
-- generated_at_utc: 2026-04-30T10:36:43.033010+00:00
+- generated_at_utc: 2026-04-30T13:40:22.694267+00:00
 - total_search_results: 13
 - note: 本报告用于后续 extractor 抽取，不包含最终推荐排名。
 
@@ -45,46 +45,61 @@
 
 ## Benchmark Candidates
 ### Benchmark 1: SWE-bench
-- name: SWE-bench
-- source: arXiv + GitHub + leaderboard
-- description: SWE-bench benchmark candidate.
-- task_type: Software Engineering Agent Evaluation
-- evaluated_ability: issue resolution, patch generation
-- metrics: resolved issue rate
-- paper_url: https://arxiv.org/abs/2310.06770
-- code_url: https://github.com/swe-bench/SWE-bench
-- dataset_url: 未找到
-- leaderboard_url: https://www.swebench.com/
-- open_source: true
-- resource_completeness_initial: medium
-- reproduction_difficulty_initial: medium
-- fit_for_course_lab_initial: medium
-- fit_for_research_survey_initial: high
-- fit_for_quick_reproduction_initial: medium
-- evidence_links:
+name: SWE-bench
+description: SWE-bench benchmark candidate.
+task_type: Software Engineering Agent Evaluation
+evaluated_ability:
+  - issue resolution
+  - patch generation
+metrics:
+  - resolved issue rate
+paper_url: https://arxiv.org/abs/2310.06770
+code_url: https://github.com/swe-bench/SWE-bench
+dataset_url: null
+leaderboard_url: https://www.swebench.com/
+open_source: true
+resource_completeness: 3
+reproduction_difficulty: 3
+teaching_value: 3
+research_value: 3
+topic_popularity: 3
+time_cost_friendliness: 3
+documentation_quality: 3
+authority: 3
+limitations: null
+suitable_usage: null
+evidence:
   - https://arxiv.org/abs/2310.06770
   - https://github.com/swe-bench/SWE-bench
   - https://www.swebench.com/
   - https://arxiv.org/abs/2505.23419v2
 
 ### Benchmark 2: GAIA
-- name: GAIA
-- source: arXiv + HF
-- description: GAIA benchmark candidate.
-- task_type: General Assistant / Agent Evaluation
-- evaluated_ability: reasoning, web browsing, tool use
-- metrics: accuracy
-- paper_url: https://arxiv.org/abs/2311.12983
-- code_url: 未找到
-- dataset_url: https://huggingface.co/datasets/gaia-benchmark/GAIA
-- leaderboard_url: https://huggingface.co/spaces/gaia-benchmark/leaderboard
-- open_source: null
-- resource_completeness_initial: medium
-- reproduction_difficulty_initial: medium
-- fit_for_course_lab_initial: medium
-- fit_for_research_survey_initial: high
-- fit_for_quick_reproduction_initial: medium
-- evidence_links:
+name: GAIA
+description: GAIA benchmark candidate.
+task_type: General Assistant / Agent Evaluation
+evaluated_ability:
+  - reasoning
+  - web browsing
+  - tool use
+metrics:
+  - accuracy
+paper_url: https://arxiv.org/abs/2311.12983
+code_url: null
+dataset_url: https://huggingface.co/datasets/gaia-benchmark/GAIA
+leaderboard_url: https://huggingface.co/spaces/gaia-benchmark/leaderboard
+open_source: null
+resource_completeness: 3
+reproduction_difficulty: 3
+teaching_value: 3
+research_value: 3
+topic_popularity: 3
+time_cost_friendliness: 3
+documentation_quality: 3
+authority: 3
+limitations: null
+suitable_usage: null
+evidence:
   - https://arxiv.org/abs/2311.12983
   - https://huggingface.co/datasets/gaia-benchmark/GAIA
   - https://huggingface.co/spaces/gaia-benchmark/leaderboard
@@ -93,90 +108,119 @@
   - https://arxiv.org/abs/1609.04172v1
 
 ### Benchmark 3: AgentBench
-- name: AgentBench
-- source: arXiv + GitHub
-- description: AgentBench benchmark candidate.
-- task_type: LLM-as-Agent Evaluation
-- evaluated_ability: reasoning, tool interaction
-- metrics: task success
-- paper_url: https://arxiv.org/abs/2308.03688
-- code_url: https://github.com/THUDM/AgentBench
-- dataset_url: 未找到
-- leaderboard_url: 未找到
-- open_source: true
-- resource_completeness_initial: medium
-- reproduction_difficulty_initial: medium
-- fit_for_course_lab_initial: medium
-- fit_for_research_survey_initial: high
-- fit_for_quick_reproduction_initial: medium
-- evidence_links:
+name: AgentBench
+description: AgentBench benchmark candidate.
+task_type: LLM-as-Agent Evaluation
+evaluated_ability:
+  - reasoning
+  - tool interaction
+metrics:
+  - task success
+paper_url: https://arxiv.org/abs/2308.03688
+code_url: https://github.com/THUDM/AgentBench
+dataset_url: null
+leaderboard_url: null
+open_source: true
+resource_completeness: 3
+reproduction_difficulty: 3
+teaching_value: 3
+research_value: 3
+topic_popularity: 3
+time_cost_friendliness: 3
+documentation_quality: 3
+authority: 3
+limitations: null
+suitable_usage: null
+evidence:
   - https://arxiv.org/abs/2308.03688
   - https://github.com/THUDM/AgentBench
 
 ### Benchmark 4: WebArena
-- name: WebArena
-- source: arXiv + GitHub + website
-- description: WebArena benchmark candidate.
-- task_type: Web Agent Evaluation
-- evaluated_ability: web navigation, planning, tool use
-- metrics: task success rate
-- paper_url: https://arxiv.org/abs/2307.13854
-- code_url: https://github.com/web-arena-x/webarena
-- dataset_url: 未找到
-- leaderboard_url: https://webarena.dev/
-- open_source: true
-- resource_completeness_initial: medium
-- reproduction_difficulty_initial: medium
-- fit_for_course_lab_initial: medium
-- fit_for_research_survey_initial: high
-- fit_for_quick_reproduction_initial: medium
-- evidence_links:
+name: WebArena
+description: WebArena benchmark candidate.
+task_type: Web Agent Evaluation
+evaluated_ability:
+  - web navigation
+  - planning
+  - tool use
+metrics:
+  - task success rate
+paper_url: https://arxiv.org/abs/2307.13854
+code_url: https://github.com/web-arena-x/webarena
+dataset_url: null
+leaderboard_url: https://webarena.dev/
+open_source: true
+resource_completeness: 3
+reproduction_difficulty: 3
+teaching_value: 3
+research_value: 3
+topic_popularity: 3
+time_cost_friendliness: 3
+documentation_quality: 3
+authority: 3
+limitations: null
+suitable_usage: null
+evidence:
   - https://arxiv.org/abs/2307.13854
   - https://github.com/web-arena-x/webarena
   - https://webarena.dev/
 
 ### Benchmark 5: OSWorld
-- name: OSWorld
-- source: arXiv + GitHub + website
-- description: OSWorld benchmark candidate.
-- task_type: Computer-use Agent Evaluation
-- evaluated_ability: GUI operation, desktop task solving
-- metrics: task success rate
-- paper_url: https://arxiv.org/abs/2404.07972
-- code_url: https://github.com/xlang-ai/OSWorld
-- dataset_url: 未找到
-- leaderboard_url: https://os-world.github.io/
-- open_source: true
-- resource_completeness_initial: medium
-- reproduction_difficulty_initial: medium
-- fit_for_course_lab_initial: medium
-- fit_for_research_survey_initial: high
-- fit_for_quick_reproduction_initial: medium
-- evidence_links:
+name: OSWorld
+description: OSWorld benchmark candidate.
+task_type: Computer-use Agent Evaluation
+evaluated_ability:
+  - GUI operation
+  - desktop task solving
+metrics:
+  - task success rate
+paper_url: https://arxiv.org/abs/2404.07972
+code_url: https://github.com/xlang-ai/OSWorld
+dataset_url: null
+leaderboard_url: https://os-world.github.io/
+open_source: true
+resource_completeness: 3
+reproduction_difficulty: 3
+teaching_value: 3
+research_value: 3
+topic_popularity: 3
+time_cost_friendliness: 3
+documentation_quality: 3
+authority: 3
+limitations: null
+suitable_usage: null
+evidence:
   - https://arxiv.org/abs/2404.07972
   - https://github.com/xlang-ai/OSWorld
   - https://os-world.github.io/
 
 ### Benchmark 6: ToolBench
-- name: ToolBench
-- source: GitHub
-- description: ToolBench benchmark candidate.
-- task_type: Tool-use Agent Evaluation
-- evaluated_ability: API selection, tool use
-- metrics: pass rate
-- paper_url: 未找到
-- code_url: https://github.com/OpenBMB/ToolBench
-- dataset_url: 未找到
-- leaderboard_url: 未找到
-- open_source: true
-- resource_completeness_initial: medium
-- reproduction_difficulty_initial: medium
-- fit_for_course_lab_initial: medium
-- fit_for_research_survey_initial: high
-- fit_for_quick_reproduction_initial: medium
-- evidence_links:
+name: ToolBench
+description: ToolBench benchmark candidate.
+task_type: Tool-use Agent Evaluation
+evaluated_ability:
+  - API selection
+  - tool use
+metrics:
+  - pass rate
+paper_url: null
+code_url: https://github.com/OpenBMB/ToolBench
+dataset_url: null
+leaderboard_url: null
+open_source: true
+resource_completeness: 3
+reproduction_difficulty: 3
+teaching_value: 3
+research_value: 3
+topic_popularity: 3
+time_cost_friendliness: 3
+documentation_quality: 3
+authority: 3
+limitations: null
+suitable_usage: null
+evidence:
   - https://github.com/OpenBMB/ToolBench
 
 ## Notes
 - Searcher 仅提供事实型调研信息，不输出最终推荐排序。
-- 缺失链接已标注为‘未找到’或 null，未编造 URL。
+- 缺失链接统一输出为 null，不编造 URL。
