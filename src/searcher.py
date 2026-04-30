@@ -26,7 +26,60 @@ MAX_EVIDENCE_LINKS = 10
 MAX_SNAPSHOT_ITEMS = 20
 MAX_BENCHMARKS = 8
 MIN_BENCHMARKS = 5
-MISSING_VALUE = "未找到"
+MISSING_VALUE = "null"
+
+
+def _score(value: Any, default: int = 3) -> int:
+    """Clamp score value to [1, 5] integer."""
+    try:
+        score = int(value)
+    except (TypeError, ValueError):
+        score = default
+    return min(max(score, 1), 5)
+
+
+def _normalize_text(value: Any) -> str | None:
+    """Normalize optional text values."""
+    if value is None:
+        return None
+    text = str(value).strip()
+    if not text or text.lower() in {"null", "none", "n/a", "未找到"}:
+        return None
+    return text.replace("\n", " ")
+
+
+def _normalize_url(value: Any) -> str | None:
+    """Normalize URL value and reject placeholders."""
+    text = _normalize_text(value)
+    if not text:
+        return None
+    if text.startswith("http://") or text.startswith("https://"):
+        return text
+    return None
+
+
+def _normalize_list(value: Any) -> list[str]:
+    """Normalize list-like value into unique string list."""
+    if value is None:
+        return []
+    if isinstance(value, list):
+        raw_values = value
+    elif isinstance(value, str):
+        raw_values = [value]
+    else:
+        raw_values = [str(value)]
+
+    output: list[str] = []
+    seen: set[str] = set()
+    for item in raw_values:
+        text = _normalize_text(item)
+        if not text:
+            continue
+        key = text.lower()
+        if key not in seen:
+            seen.add(key)
+            output.append(text)
+    return output
 
 
 def _bm(
@@ -44,25 +97,39 @@ def _bm(
     evidence_links: list[str] | None = None,
 ) -> dict[str, Any]:
     """Build a normalized curated benchmark record."""
+    paper_link = _normalize_url(paper_url)
+    code_link = _normalize_url(code_url)
+    dataset_link = _normalize_url(dataset_url)
+    leaderboard_link = _normalize_url(leaderboard_url)
+    normalized_evidence = _normalize_list(evidence_links)
+    for link in [paper_link, code_link, dataset_link, leaderboard_link]:
+        if link and link not in normalized_evidence:
+            normalized_evidence.append(link)
+
     return {
         "name": name,
         "aliases": aliases,
         "source": source,
         "description": f"{name} benchmark candidate.",
         "task_type": task_type,
-        "evaluated_ability": abilities,
-        "metrics": metrics,
-        "paper_url": paper_url,
-        "code_url": code_url,
-        "dataset_url": dataset_url,
-        "leaderboard_url": leaderboard_url,
+        "evaluated_ability": _normalize_list(abilities),
+        "metrics": _normalize_list(metrics),
+        "paper_url": paper_link,
+        "code_url": code_link,
+        "dataset_url": dataset_link,
+        "leaderboard_url": leaderboard_link,
         "open_source": open_source,
-        "resource_completeness": "medium",
-        "reproduction_difficulty": "medium",
-        "fit_for_course_lab": "medium",
-        "fit_for_research_survey": "high",
-        "fit_for_quick_reproduction": "medium",
-        "evidence_links": evidence_links or [],
+        "resource_completeness": 3,
+        "reproduction_difficulty": 3,
+        "teaching_value": 3,
+        "research_value": 3,
+        "topic_popularity": 3,
+        "time_cost_friendliness": 3,
+        "documentation_quality": 3,
+        "authority": 3,
+        "limitations": None,
+        "suitable_usage": None,
+        "evidence": normalized_evidence,
     }
 
 
@@ -137,9 +204,19 @@ def _search_tavily(query: str) -> list[dict]:
 def _search_duckduckgo(query: str) -> list[dict]:
     """Search web via DuckDuckGo."""
     try:
-        from duckduckgo_search import DDGS
+        from ddgs import DDGS
     except Exception:
-        return []
+        try:
+            import warnings
+            from duckduckgo_search import DDGS
+
+            warnings.filterwarnings(
+                "ignore",
+                message="This package (`duckduckgo_search`) has been renamed to `ddgs`!",
+                category=RuntimeWarning,
+            )
+        except Exception:
+            return []
     try:
         with DDGS() as ddgs:
             items = list(islice(ddgs.text(query, max_results=5), 5))
@@ -319,9 +396,10 @@ def _collect_search_results(topic: str, plan: dict) -> list[dict]:
     deduped: list[dict] = []
     seen_urls: set[str] = set()
     for item in collected:
-        url = str(item.get("url", "")).strip()
+        url = _normalize_url(item.get("url"))
         if url and url not in seen_urls:
             seen_urls.add(url)
+            item["url"] = url
             deduped.append(item)
             if len(deduped) >= MAX_RESULTS_TOTAL:
                 break
@@ -375,6 +453,7 @@ def _to_bool_text(value: Any) -> str:
 
 def _build_candidate_benchmarks(topic: str, results: list[dict]) -> list[dict]:
     """Merge search evidence into topic-aware curated candidates."""
+    topic_type = _detect_topic_type(topic)
     base = copy.deepcopy(_curated_candidates_for_topic(topic))
     by_name = {item["name"]: item for item in base}
     matched: list[str] = []
@@ -387,16 +466,16 @@ def _build_candidate_benchmarks(topic: str, results: list[dict]) -> list[dict]:
             matched.append(name)
 
         candidate = by_name[name]
-        url = str(result.get("url", "")).strip()
+        url = _normalize_url(result.get("url"))
         if not url:
             continue
-        if url not in candidate.get("evidence_links", []):
-            candidate.setdefault("evidence_links", []).append(url)
+        if url not in candidate.get("evidence", []):
+            candidate.setdefault("evidence", []).append(url)
 
         link_type = _classify_link(url)
         if link_type in {"paper_url", "code_url", "dataset_url", "leaderboard_url"}:
-            current = str(candidate.get(link_type, MISSING_VALUE)).strip()
-            if not current or current in {MISSING_VALUE, "null"}:
+            current = _normalize_url(candidate.get(link_type))
+            if not current:
                 candidate[link_type] = url
 
     ordered: list[dict] = [by_name[n] for n in matched]
@@ -404,23 +483,131 @@ def _build_candidate_benchmarks(topic: str, results: list[dict]) -> list[dict]:
         if item["name"] not in matched:
             ordered.append(item)
 
-    if len(ordered) < MIN_BENCHMARKS:
-        ordered.extend(copy.deepcopy(AGENT_CURATED_BENCHMARKS))
-
     deduped: list[dict] = []
     seen: set[str] = set()
     for item in ordered:
-        name = str(item.get("name", "")).strip()
+        name = _normalize_text(item.get("name"))
         if name and name not in seen:
+            abilities = _normalize_list(item.get("evaluated_ability")) or (
+                ["retrieval quality", "grounded generation", "faithfulness"]
+                if topic_type == "rag"
+                else ["code generation", "repository understanding", "issue resolution"]
+                if topic_type == "code"
+                else ["reasoning", "planning", "tool use"]
+                if topic_type == "agent"
+                else ["reasoning", "evaluation", "task completion"]
+            )
+            metrics = _normalize_list(item.get("metrics")) or (
+                ["faithfulness", "answer relevance"]
+                if topic_type == "rag"
+                else ["task success rate"]
+                if topic_type in {"code", "agent"}
+                else ["not specified"]
+            )
+            paper_url = _normalize_url(item.get("paper_url"))
+            code_url = _normalize_url(item.get("code_url"))
+            dataset_url = _normalize_url(item.get("dataset_url"))
+            leaderboard_url = _normalize_url(item.get("leaderboard_url"))
+            evidence = _normalize_list(item.get("evidence"))
+            for link in [paper_url, code_url, dataset_url, leaderboard_url]:
+                if link and link not in evidence:
+                    evidence.append(link)
+            evidence = [link for link in evidence if _normalize_url(link)]
+            if not evidence:
+                continue
             seen.add(name)
-            deduped.append(item)
+            deduped.append(
+                {
+                    "name": name,
+                    "description": _normalize_text(item.get("description")),
+                    "task_type": _normalize_text(item.get("task_type")),
+                    "evaluated_ability": abilities,
+                    "metrics": metrics,
+                    "paper_url": paper_url,
+                    "code_url": code_url,
+                    "dataset_url": dataset_url,
+                    "leaderboard_url": leaderboard_url,
+                    "open_source": item.get("open_source")
+                    if isinstance(item.get("open_source"), bool)
+                    else None,
+                    "resource_completeness": _score(item.get("resource_completeness")),
+                    "reproduction_difficulty": _score(item.get("reproduction_difficulty")),
+                    "teaching_value": _score(item.get("teaching_value")),
+                    "research_value": _score(item.get("research_value")),
+                    "topic_popularity": _score(item.get("topic_popularity")),
+                    "time_cost_friendliness": _score(item.get("time_cost_friendliness")),
+                    "documentation_quality": _score(item.get("documentation_quality")),
+                    "authority": _score(item.get("authority")),
+                    "limitations": _normalize_text(item.get("limitations")),
+                    "suitable_usage": _normalize_text(item.get("suitable_usage")),
+                    "evidence": evidence[:MAX_EVIDENCE_LINKS],
+                }
+            )
+
+    if len(deduped) < MIN_BENCHMARKS:
+        for item in copy.deepcopy(GENERIC_CURATED_BENCHMARKS):
+            name = _normalize_text(item.get("name"))
+            if not name or name in seen:
+                continue
+            evidence = _normalize_list(item.get("evidence"))
+            for link_key in ["paper_url", "code_url", "dataset_url", "leaderboard_url"]:
+                link = _normalize_url(item.get(link_key))
+                if link and link not in evidence:
+                    evidence.append(link)
+            evidence = [link for link in evidence if _normalize_url(link)]
+            if not evidence:
+                continue
+            seen.add(name)
+            deduped.append(
+                {
+                    "name": name,
+                    "description": _normalize_text(item.get("description")),
+                    "task_type": _normalize_text(item.get("task_type")),
+                    "evaluated_ability": _normalize_list(item.get("evaluated_ability")) or ["not specified"],
+                    "metrics": _normalize_list(item.get("metrics")) or ["not specified"],
+                    "paper_url": _normalize_url(item.get("paper_url")),
+                    "code_url": _normalize_url(item.get("code_url")),
+                    "dataset_url": _normalize_url(item.get("dataset_url")),
+                    "leaderboard_url": _normalize_url(item.get("leaderboard_url")),
+                    "open_source": item.get("open_source")
+                    if isinstance(item.get("open_source"), bool)
+                    else None,
+                    "resource_completeness": _score(item.get("resource_completeness")),
+                    "reproduction_difficulty": _score(item.get("reproduction_difficulty")),
+                    "teaching_value": _score(item.get("teaching_value")),
+                    "research_value": _score(item.get("research_value")),
+                    "topic_popularity": _score(item.get("topic_popularity")),
+                    "time_cost_friendliness": _score(item.get("time_cost_friendliness")),
+                    "documentation_quality": _score(item.get("documentation_quality")),
+                    "authority": _score(item.get("authority")),
+                    "limitations": _normalize_text(item.get("limitations")),
+                    "suitable_usage": _normalize_text(item.get("suitable_usage")),
+                    "evidence": evidence[:MAX_EVIDENCE_LINKS],
+                }
+            )
+            if len(deduped) >= MIN_BENCHMARKS:
+                break
+
     return deduped[:MAX_BENCHMARKS]
 
 
-def _render_list(value: list[str]) -> str:
-    """Render list as comma-separated text."""
-    cleaned = [str(x).strip() for x in value if str(x).strip()]
-    return ", ".join(cleaned) if cleaned else MISSING_VALUE
+def _render_scalar(value: Any) -> str:
+    """Render scalar value as YAML-friendly literal text."""
+    if value is None:
+        return "null"
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    return str(value).replace("\n", " ").strip() or "null"
+
+
+def _append_yaml_list(lines: list[str], field_name: str, items: list[str]) -> None:
+    """Append YAML-style list field."""
+    lines.append(f"{field_name}:")
+    if items:
+        for item in items:
+            lines.append(f"  - {item}")
+    else:
+        lines.append("  - null")
 
 
 def _build_report_from_results(topic: str, plan: dict, results: list[dict]) -> str:
@@ -453,7 +640,7 @@ def _build_report_from_results(topic: str, plan: dict, results: list[dict]) -> s
     if isinstance(search_goals, list) and search_goals:
         lines.extend([f"- {goal}" for goal in search_goals[:8]])
     else:
-        lines.append(f"- {MISSING_VALUE}")
+        lines.append("- null")
 
     lines.extend(["", "## Search Queries"])
     lines.extend([f"- {q}" for q in search_queries[:8]])
@@ -470,46 +657,39 @@ def _build_report_from_results(topic: str, plan: dict, results: list[dict]) -> s
         lines.append("- 未检索到在线结果，以下内容由 topic-aware fallback 生成。")
 
     lines.extend(["", "## Benchmark Candidates"])
-    for index, bm in enumerate(candidates, start=1):
-        evidence_links: list[str] = []
-        for link in bm.get("evidence_links", []):
-            link_text = str(link).strip()
-            if link_text and link_text not in evidence_links:
-                evidence_links.append(link_text)
-        evidence_links = evidence_links[:MAX_EVIDENCE_LINKS]
-
-        lines.extend(
-            [
-                f"### Benchmark {index}: {bm['name']}",
-                f"- name: {bm['name']}",
-                f"- source: {bm.get('source', MISSING_VALUE)}",
-                f"- description: {bm.get('description', MISSING_VALUE)}",
-                f"- task_type: {bm.get('task_type', MISSING_VALUE)}",
-                f"- evaluated_ability: {_render_list(bm.get('evaluated_ability', []))}",
-                f"- metrics: {_render_list(bm.get('metrics', []))}",
-                f"- paper_url: {bm.get('paper_url', MISSING_VALUE)}",
-                f"- code_url: {bm.get('code_url', MISSING_VALUE)}",
-                f"- dataset_url: {bm.get('dataset_url', MISSING_VALUE)}",
-                f"- leaderboard_url: {bm.get('leaderboard_url', MISSING_VALUE)}",
-                f"- open_source: {_to_bool_text(bm.get('open_source'))}",
-                f"- resource_completeness_initial: {bm.get('resource_completeness', MISSING_VALUE)}",
-                f"- reproduction_difficulty_initial: {bm.get('reproduction_difficulty', MISSING_VALUE)}",
-                f"- fit_for_course_lab_initial: {bm.get('fit_for_course_lab', MISSING_VALUE)}",
-                f"- fit_for_research_survey_initial: {bm.get('fit_for_research_survey', MISSING_VALUE)}",
-                f"- fit_for_quick_reproduction_initial: {bm.get('fit_for_quick_reproduction', MISSING_VALUE)}",
-                "- evidence_links:",
-            ]
+    for index, benchmark in enumerate(candidates, start=1):
+        lines.append(f"### Benchmark {index}: {benchmark['name']}")
+        lines.append(f"name: {_render_scalar(benchmark.get('name'))}")
+        lines.append(f"description: {_render_scalar(benchmark.get('description'))}")
+        lines.append(f"task_type: {_render_scalar(benchmark.get('task_type'))}")
+        _append_yaml_list(lines, "evaluated_ability", benchmark.get("evaluated_ability", []))
+        _append_yaml_list(lines, "metrics", benchmark.get("metrics", []))
+        lines.append(f"paper_url: {_render_scalar(benchmark.get('paper_url'))}")
+        lines.append(f"code_url: {_render_scalar(benchmark.get('code_url'))}")
+        lines.append(f"dataset_url: {_render_scalar(benchmark.get('dataset_url'))}")
+        lines.append(f"leaderboard_url: {_render_scalar(benchmark.get('leaderboard_url'))}")
+        lines.append(f"open_source: {_to_bool_text(benchmark.get('open_source'))}")
+        lines.append(f"resource_completeness: {_score(benchmark.get('resource_completeness'))}")
+        lines.append(f"reproduction_difficulty: {_score(benchmark.get('reproduction_difficulty'))}")
+        lines.append(f"teaching_value: {_score(benchmark.get('teaching_value'))}")
+        lines.append(f"research_value: {_score(benchmark.get('research_value'))}")
+        lines.append(f"topic_popularity: {_score(benchmark.get('topic_popularity'))}")
+        lines.append(
+            f"time_cost_friendliness: {_score(benchmark.get('time_cost_friendliness'))}"
         )
-        if evidence_links:
-            lines.extend([f"  - {link}" for link in evidence_links])
-        else:
-            lines.append(f"  - {MISSING_VALUE}")
+        lines.append(
+            f"documentation_quality: {_score(benchmark.get('documentation_quality'))}"
+        )
+        lines.append(f"authority: {_score(benchmark.get('authority'))}")
+        lines.append(f"limitations: {_render_scalar(benchmark.get('limitations'))}")
+        lines.append(f"suitable_usage: {_render_scalar(benchmark.get('suitable_usage'))}")
+        _append_yaml_list(lines, "evidence", benchmark.get("evidence", []))
         lines.append("")
 
     lines.extend([
         "## Notes",
         "- Searcher 仅提供事实型调研信息，不输出最终推荐排序。",
-        "- 缺失链接已标注为‘未找到’或 null，未编造 URL。",
+        "- 缺失链接统一输出为 null，不编造 URL。",
         "",
     ])
     return "\n".join(lines)
