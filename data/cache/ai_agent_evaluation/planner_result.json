@@ -1,0 +1,29 @@
+{
+  "topic": "AI Agent Evaluation Benchmark",
+  "mode": "????",
+  "search_goals": [
+    "梳理 AI Agent Evaluation Benchmark 相关 benchmark 的代表性候选",
+    "收集每个 benchmark 的论文、代码、数据集和 leaderboard 入口",
+    "总结各 benchmark 的评测任务、能力维度和关键指标",
+    "比较资源完整度、文档质量与复现门槛",
+    "提炼适用于后续结构化抽取的证据链接集合",
+    "梳理主题相关 benchmark 的代表性候选",
+    "收集论文、代码、数据集与 leaderboard 入口",
+    "总结评测任务、能力维度与核心指标"
+  ],
+  "search_queries": [
+    "AI Agent Evaluation Benchmark benchmark paper GitHub leaderboard",
+    "AI Agent Evaluation Benchmark evaluation benchmark dataset metrics",
+    "AI Agent Evaluation Benchmark benchmark survey comparison",
+    "AI Agent Evaluation Benchmark GitHub open source implementation",
+    "AI Agent Evaluation Benchmark arxiv benchmark 2024 2025",
+    "AI Agent Evaluation Benchmark evaluation benchmark dataset metrics comparison",
+    "AI Agent Evaluation Benchmark benchmark survey open source implementation"
+  ],
+  "expected_outputs": [
+    "Benchmark candidate list with evidence links",
+    "Structured fields for extractor (task, metric, urls, resource clues)",
+    "初步的资源完整度与复现难度判断依据",
+    "可供后续评分模块使用的事实型调研摘要"
+  ]
+}
