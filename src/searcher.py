@@ -5,7 +5,8 @@ from __future__ import annotations
 
 import copy
 import os
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+from functools import lru_cache
 from itertools import islice
 from pathlib import Path
 from typing import Any
@@ -24,9 +25,70 @@ MAX_QUERIES = 8
 MAX_RESULTS_TOTAL = 60
 MAX_EVIDENCE_LINKS = 10
 MAX_SNAPSHOT_ITEMS = 20
-MAX_BENCHMARKS = 8
+MAX_BENCHMARKS = 10
 MIN_BENCHMARKS = 5
 MISSING_VALUE = "null"
+
+
+SCORE_PROFILES: dict[str, dict[str, int]] = {
+    "AgentBench": {"resource_completeness": 4, "reproduction_difficulty": 4, "teaching_value": 4, "research_value": 5, "topic_popularity": 4, "time_cost_friendliness": 2, "documentation_quality": 4, "authority": 5},
+    "WebArena": {"resource_completeness": 4, "reproduction_difficulty": 5, "teaching_value": 3, "research_value": 5, "topic_popularity": 5, "time_cost_friendliness": 2, "documentation_quality": 4, "authority": 5},
+    "SWE-bench": {"resource_completeness": 5, "reproduction_difficulty": 4, "teaching_value": 4, "research_value": 5, "topic_popularity": 5, "time_cost_friendliness": 3, "documentation_quality": 4, "authority": 5},
+    "GAIA": {"resource_completeness": 4, "reproduction_difficulty": 3, "teaching_value": 4, "research_value": 5, "topic_popularity": 4, "time_cost_friendliness": 3, "documentation_quality": 4, "authority": 4},
+    "OSWorld": {"resource_completeness": 4, "reproduction_difficulty": 5, "teaching_value": 3, "research_value": 5, "topic_popularity": 4, "time_cost_friendliness": 2, "documentation_quality": 3, "authority": 4},
+    "ToolBench": {"resource_completeness": 3, "reproduction_difficulty": 4, "teaching_value": 4, "research_value": 4, "topic_popularity": 4, "time_cost_friendliness": 3, "documentation_quality": 3, "authority": 4},
+    "Mind2Web": {"resource_completeness": 4, "reproduction_difficulty": 4, "teaching_value": 4, "research_value": 5, "topic_popularity": 4, "time_cost_friendliness": 2, "documentation_quality": 4, "authority": 5},
+    "AgentBoard": {"resource_completeness": 4, "reproduction_difficulty": 4, "teaching_value": 4, "research_value": 5, "topic_popularity": 3, "time_cost_friendliness": 3, "documentation_quality": 4, "authority": 4},
+    "RAGAS": {"resource_completeness": 4, "reproduction_difficulty": 2, "teaching_value": 5, "research_value": 4, "topic_popularity": 5, "time_cost_friendliness": 5, "documentation_quality": 4, "authority": 4},
+    "RAGBench": {"resource_completeness": 3, "reproduction_difficulty": 3, "teaching_value": 4, "research_value": 5, "topic_popularity": 4, "time_cost_friendliness": 3, "documentation_quality": 3, "authority": 4},
+    "RGB": {"resource_completeness": 4, "reproduction_difficulty": 3, "teaching_value": 4, "research_value": 4, "topic_popularity": 3, "time_cost_friendliness": 3, "documentation_quality": 3, "authority": 4},
+    "CRUD-RAG": {"resource_completeness": 3, "reproduction_difficulty": 3, "teaching_value": 3, "research_value": 4, "topic_popularity": 3, "time_cost_friendliness": 3, "documentation_quality": 3, "authority": 3},
+    "BEIR": {"resource_completeness": 5, "reproduction_difficulty": 3, "teaching_value": 4, "research_value": 5, "topic_popularity": 5, "time_cost_friendliness": 3, "documentation_quality": 4, "authority": 5},
+    "KILT": {"resource_completeness": 4, "reproduction_difficulty": 3, "teaching_value": 4, "research_value": 5, "topic_popularity": 4, "time_cost_friendliness": 3, "documentation_quality": 4, "authority": 5},
+    "HotpotQA": {"resource_completeness": 4, "reproduction_difficulty": 2, "teaching_value": 5, "research_value": 4, "topic_popularity": 4, "time_cost_friendliness": 4, "documentation_quality": 4, "authority": 4},
+    "Natural Questions": {"resource_completeness": 4, "reproduction_difficulty": 2, "teaching_value": 4, "research_value": 4, "topic_popularity": 4, "time_cost_friendliness": 4, "documentation_quality": 3, "authority": 4},
+    "SWE-bench Verified": {"resource_completeness": 4, "reproduction_difficulty": 4, "teaching_value": 4, "research_value": 5, "topic_popularity": 4, "time_cost_friendliness": 3, "documentation_quality": 4, "authority": 5},
+    "HumanEval": {"resource_completeness": 4, "reproduction_difficulty": 2, "teaching_value": 5, "research_value": 4, "topic_popularity": 5, "time_cost_friendliness": 5, "documentation_quality": 4, "authority": 5},
+    "MBPP": {"resource_completeness": 4, "reproduction_difficulty": 2, "teaching_value": 5, "research_value": 3, "topic_popularity": 4, "time_cost_friendliness": 5, "documentation_quality": 4, "authority": 4},
+    "BigCodeBench": {"resource_completeness": 4, "reproduction_difficulty": 4, "teaching_value": 4, "research_value": 5, "topic_popularity": 4, "time_cost_friendliness": 3, "documentation_quality": 3, "authority": 4},
+    "RepoBench": {"resource_completeness": 4, "reproduction_difficulty": 4, "teaching_value": 4, "research_value": 4, "topic_popularity": 3, "time_cost_friendliness": 3, "documentation_quality": 3, "authority": 4},
+    "Agentless": {"resource_completeness": 3, "reproduction_difficulty": 3, "teaching_value": 4, "research_value": 4, "topic_popularity": 3, "time_cost_friendliness": 4, "documentation_quality": 3, "authority": 4},
+    "APPS": {"resource_completeness": 4, "reproduction_difficulty": 3, "teaching_value": 4, "research_value": 4, "topic_popularity": 4, "time_cost_friendliness": 4, "documentation_quality": 4, "authority": 4},
+}
+
+PROJECT_URLS: dict[str, str] = {
+    "AgentBench": "https://github.com/THUDM/AgentBench",
+    "WebArena": "https://webarena.dev/",
+    "SWE-bench": "https://www.swebench.com/",
+    "SWE-bench Verified": "https://www.swebench.com/verified.html",
+    "GAIA": "https://huggingface.co/spaces/gaia-benchmark/leaderboard",
+    "OSWorld": "https://os-world.github.io/",
+    "ToolBench": "https://github.com/OpenBMB/ToolBench",
+    "Mind2Web": "https://osu-nlp-group.github.io/Mind2Web/",
+    "AgentBoard": "https://github.com/hkust-nlp/AgentBoard",
+    "RAGAS": "https://github.com/explodinggradients/ragas",
+    "RAGBench": "https://arxiv.org/abs/2407.11005",
+    "RGB": "https://github.com/chen700564/RGB",
+    "CRUD-RAG": "https://arxiv.org/abs/2401.17043",
+    "BEIR": "https://github.com/beir-cellar/beir",
+    "KILT": "https://github.com/facebookresearch/KILT",
+    "HotpotQA": "https://huggingface.co/datasets/hotpotqa/hotpot_qa",
+    "Natural Questions": "https://ai.google.com/research/NaturalQuestions/dataset",
+    "HumanEval": "https://github.com/openai/human-eval",
+    "MBPP": "https://github.com/google-research/google-research/tree/master/mbpp",
+    "BigCodeBench": "https://bigcode-bench.github.io/",
+    "RepoBench": "https://github.com/Leolty/repobench",
+    "Agentless": "https://github.com/OpenAutoCoder/Agentless",
+    "APPS": "https://github.com/hendrycks/apps",
+}
+
+RELATED_BENCHMARKS: dict[str, list[str]] = {
+    "WebArena": ["VisualWebArena", "BrowserGym"],
+    "SWE-bench": ["SWE-bench Verified", "Agentless"],
+    "RAGAS": ["RAGBench", "RGB"],
+    "Mind2Web": ["WebArena"],
+    "AgentBoard": ["AgentBench", "ToolBench"],
+}
 
 
 def _score(value: Any, default: int = 3) -> int:
@@ -82,6 +144,77 @@ def _normalize_list(value: Any) -> list[str]:
     return output
 
 
+def _github_readme_url(repo_url: str | None) -> str | None:
+    """Build README evidence link from GitHub repository URL."""
+    if not repo_url:
+        return None
+    clean = repo_url.rstrip("/")
+    if "github.com/" not in clean:
+        return None
+    return f"{clean}#readme"
+
+
+def _github_repo_id_from_url(repo_url: str | None) -> str | None:
+    """Extract owner/repo from GitHub repository URL."""
+    if not repo_url:
+        return None
+    parsed = urlparse(repo_url)
+    if "github.com" not in parsed.netloc.lower():
+        return None
+    parts = [part for part in parsed.path.split("/") if part]
+    if len(parts) < 2:
+        return None
+    owner = parts[0].strip()
+    repo = parts[1].strip()
+    if repo.endswith(".git"):
+        repo = repo[:-4]
+    if not owner or not repo:
+        return None
+    return f"{owner}/{repo}"
+
+
+def _parse_iso_utc(ts: str | None) -> datetime | None:
+    """Parse GitHub ISO timestamp into timezone-aware datetime."""
+    if not ts:
+        return None
+    try:
+        return datetime.fromisoformat(ts.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
+@lru_cache(maxsize=256)
+def _fetch_github_repo_meta(repo_id: str) -> dict[str, Any]:
+    """Fetch repository metadata from GitHub REST API."""
+    if requests is None or not repo_id:
+        return {}
+    headers = {"Accept": "application/vnd.github+json"}
+    token = os.getenv("GITHUB_TOKEN", "").strip()
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    try:
+        response = requests.get(
+            f"https://api.github.com/repos/{repo_id}",
+            headers=headers,
+            timeout=SEARCH_TIMEOUT_SECONDS,
+        )
+        if response.status_code >= 400:
+            try:
+                payload = response.json()
+            except Exception:
+                payload = {}
+            return {
+                "_error_status": response.status_code,
+                "_error_message": str(payload.get("message", "")).strip() if isinstance(payload, dict) else "",
+            }
+        data = response.json()
+    except Exception:
+        return {"_error_status": -1, "_error_message": "network_or_request_error"}
+    if not isinstance(data, dict):
+        return {"_error_status": -2, "_error_message": "invalid_response"}
+    return data
+
+
 def _bm(
     name: str,
     aliases: list[str],
@@ -102,9 +235,14 @@ def _bm(
     dataset_link = _normalize_url(dataset_url)
     leaderboard_link = _normalize_url(leaderboard_url)
     normalized_evidence = _normalize_list(evidence_links)
+    readme_link = _github_readme_url(code_link)
     for link in [paper_link, code_link, dataset_link, leaderboard_link]:
         if link and link not in normalized_evidence:
             normalized_evidence.append(link)
+    if readme_link and readme_link not in normalized_evidence:
+        normalized_evidence.append(readme_link)
+
+    score_profile = SCORE_PROFILES.get(name, {})
 
     return {
         "name": name,
@@ -119,14 +257,14 @@ def _bm(
         "dataset_url": dataset_link,
         "leaderboard_url": leaderboard_link,
         "open_source": open_source,
-        "resource_completeness": 3,
-        "reproduction_difficulty": 3,
-        "teaching_value": 3,
-        "research_value": 3,
-        "topic_popularity": 3,
-        "time_cost_friendliness": 3,
-        "documentation_quality": 3,
-        "authority": 3,
+        "resource_completeness": _score(score_profile.get("resource_completeness", 3)),
+        "reproduction_difficulty": _score(score_profile.get("reproduction_difficulty", 3)),
+        "teaching_value": _score(score_profile.get("teaching_value", 3)),
+        "research_value": _score(score_profile.get("research_value", 3)),
+        "topic_popularity": _score(score_profile.get("topic_popularity", 3)),
+        "time_cost_friendliness": _score(score_profile.get("time_cost_friendliness", 3)),
+        "documentation_quality": _score(score_profile.get("documentation_quality", 3)),
+        "authority": _score(score_profile.get("authority", 3)),
         "limitations": None,
         "suitable_usage": None,
         "evidence": normalized_evidence,
@@ -140,6 +278,8 @@ AGENT_CURATED_BENCHMARKS: list[dict[str, Any]] = [
     _bm("GAIA", ["gaia", "gaia-benchmark"], "General Assistant / Agent Evaluation", ["reasoning", "web browsing", "tool use"], ["accuracy"], "arXiv + HF", paper_url="https://arxiv.org/abs/2311.12983", dataset_url="https://huggingface.co/datasets/gaia-benchmark/GAIA", leaderboard_url="https://huggingface.co/spaces/gaia-benchmark/leaderboard", evidence_links=["https://arxiv.org/abs/2311.12983", "https://huggingface.co/datasets/gaia-benchmark/GAIA", "https://huggingface.co/spaces/gaia-benchmark/leaderboard"]),
     _bm("OSWorld", ["osworld", "os-world"], "Computer-use Agent Evaluation", ["GUI operation", "desktop task solving"], ["task success rate"], "arXiv + GitHub + website", paper_url="https://arxiv.org/abs/2404.07972", code_url="https://github.com/xlang-ai/OSWorld", leaderboard_url="https://os-world.github.io/", open_source=True, evidence_links=["https://arxiv.org/abs/2404.07972", "https://github.com/xlang-ai/OSWorld", "https://os-world.github.io/"]),
     _bm("ToolBench", ["toolbench"], "Tool-use Agent Evaluation", ["API selection", "tool use"], ["pass rate"], "GitHub", code_url="https://github.com/OpenBMB/ToolBench", open_source=True, evidence_links=["https://github.com/OpenBMB/ToolBench"]),
+    _bm("Mind2Web", ["mind2web", "osu-nlp-group/mind2web"], "Web Agent Evaluation", ["web navigation", "instruction following", "action grounding"], ["task success rate"], "arXiv + GitHub + HF", paper_url="https://arxiv.org/abs/2306.06070", code_url="https://github.com/OSU-NLP-Group/Mind2Web", dataset_url="https://huggingface.co/datasets/osunlp/Mind2Web", open_source=True, evidence_links=["https://arxiv.org/abs/2306.06070", "https://github.com/OSU-NLP-Group/Mind2Web", "https://huggingface.co/datasets/osunlp/Mind2Web"]),
+    _bm("AgentBoard", ["agentboard", "hkust-nlp/agentboard"], "Cross-domain Agent Benchmark", ["planning", "tool use", "long-horizon decision making"], ["normalized task score"], "arXiv + GitHub", paper_url="https://arxiv.org/abs/2401.13178", code_url="https://github.com/hkust-nlp/AgentBoard", open_source=True, evidence_links=["https://arxiv.org/abs/2401.13178", "https://github.com/hkust-nlp/AgentBoard"]),
 ]
 
 RAG_CURATED_BENCHMARKS: list[dict[str, Any]] = [
@@ -161,6 +301,7 @@ CODE_CURATED_BENCHMARKS: list[dict[str, Any]] = [
     _bm("BigCodeBench", ["bigcodebench", "bigcode-bench"], "Code Generation Benchmark", ["complex coding task solving"], ["pass@1", "task success"], "arXiv + GitHub + leaderboard", paper_url="https://arxiv.org/abs/2406.15877", code_url="https://github.com/bigcode-project/bigcodebench", leaderboard_url="https://bigcode-bench.github.io/", open_source=True, evidence_links=["https://arxiv.org/abs/2406.15877", "https://github.com/bigcode-project/bigcodebench", "https://bigcode-bench.github.io/"]),
     _bm("RepoBench", ["repobench", "repo bench"], "Repository-level Code Benchmark", ["cross-file retrieval", "repo-level completion"], ["task completion metrics"], "arXiv + GitHub", paper_url="https://arxiv.org/abs/2306.03091", code_url="https://github.com/Leolty/repobench", open_source=True, evidence_links=["https://arxiv.org/abs/2306.03091", "https://github.com/Leolty/repobench"]),
     _bm("Agentless", ["agentless", "openautocoder/agentless"], "Software Engineering Agent Evaluation Reference", ["localization", "repair", "patch validation"], ["resolved issue rate", "cost efficiency"], "arXiv + GitHub", paper_url="https://arxiv.org/abs/2407.01489", code_url="https://github.com/OpenAutoCoder/Agentless", open_source=True, evidence_links=["https://arxiv.org/abs/2407.01489", "https://github.com/OpenAutoCoder/Agentless"]),
+    _bm("APPS", ["apps benchmark", "hendrycks/apps", "apps"], "Code Generation Benchmark", ["program synthesis", "multi-step reasoning", "execution correctness"], ["pass rate", "test case accuracy"], "arXiv + GitHub", paper_url="https://arxiv.org/abs/2105.09938", code_url="https://github.com/hendrycks/apps", open_source=True, evidence_links=["https://arxiv.org/abs/2105.09938", "https://github.com/hendrycks/apps"]),
 ]
 
 GENERIC_CURATED_BENCHMARKS: list[dict[str, Any]] = [
@@ -314,13 +455,13 @@ def _topic_focus_queries(topic: str, topic_type: str) -> list[str]:
         ]
     if topic_type == "code":
         return [
-            f"{topic} SWE-bench Verified HumanEval MBPP BigCodeBench RepoBench",
+            f"{topic} SWE-bench Verified HumanEval MBPP BigCodeBench RepoBench APPS",
             f"{topic} coding agent benchmark github leaderboard",
             f"{topic} software engineering agent evaluation dataset metrics",
         ]
     if topic_type == "agent":
         return [
-            f"{topic} AgentBench WebArena SWE-bench GAIA OSWorld ToolBench",
+            f"{topic} AgentBench WebArena SWE-bench GAIA OSWorld ToolBench Mind2Web AgentBoard",
             f"{topic} agent evaluation benchmark leaderboard",
             f"{topic} web agent tool use benchmark",
         ]
@@ -602,12 +743,205 @@ def _render_scalar(value: Any) -> str:
 
 def _append_yaml_list(lines: list[str], field_name: str, items: list[str]) -> None:
     """Append YAML-style list field."""
+    if not items:
+        lines.append(f"{field_name}: []")
+        return
     lines.append(f"{field_name}:")
-    if items:
-        for item in items:
-            lines.append(f"  - {item}")
-    else:
-        lines.append("  - null")
+    for item in items:
+        lines.append(f"  - {item}")
+
+
+def _append_yaml_section(lines: list[str], field_name: str, mapping: dict[str, Any], indent: int = 0) -> None:
+    """Append nested YAML-like mapping section."""
+    pad = "  " * indent
+    lines.append(f"{pad}{field_name}:")
+    for key, value in mapping.items():
+        key_pad = "  " * (indent + 1)
+        if isinstance(value, dict):
+            _append_yaml_section(lines, key, value, indent + 1)
+        elif isinstance(value, list):
+            if not value:
+                lines.append(f"{key_pad}{key}: []")
+            else:
+                lines.append(f"{key_pad}{key}:")
+                for item in value:
+                    lines.append(f"{key_pad}  - {_render_scalar(item)}")
+        else:
+            lines.append(f"{key_pad}{key}: {_render_scalar(value)}")
+
+
+def _project_url(benchmark: dict[str, Any]) -> str | None:
+    """Resolve benchmark project URL."""
+    name = _normalize_text(benchmark.get("name")) or ""
+    explicit = _normalize_url(PROJECT_URLS.get(name))
+    if explicit:
+        return explicit
+    for key in ["leaderboard_url", "code_url", "paper_url", "dataset_url"]:
+        url = _normalize_url(benchmark.get(key))
+        if url:
+            return url
+    return None
+
+
+def _requirements_from_task(task_type: str | None) -> list[str]:
+    """Infer setup requirements from task type."""
+    text = (task_type or "").lower()
+    reqs = ["Python environment"]
+    if "web" in text:
+        reqs.extend(["Browser automation dependencies", "Website/service configuration"])
+    if "computer-use" in text or "desktop" in text:
+        reqs.extend(["VM or desktop environment", "GUI automation setup"])
+    if "software" in text or "code" in text:
+        reqs.extend(["Repository checkout", "Evaluation harness configuration"])
+    if "rag" in text or "retrieval" in text:
+        reqs.extend(["Dataset download", "Embedding/retrieval pipeline setup"])
+    return reqs
+
+
+def _high_level_tag(score: int, high: int = 4, low: int = 2) -> str:
+    """Convert numeric score to coarse label."""
+    if score >= high:
+        return "high"
+    if score <= low:
+        return "low"
+    return "medium"
+
+
+def _estimated_setup_cost(reproduction_difficulty: int) -> str:
+    """Map difficulty score to setup cost text."""
+    if reproduction_difficulty >= 5:
+        return "very_high"
+    if reproduction_difficulty >= 4:
+        return "high"
+    if reproduction_difficulty <= 2:
+        return "low"
+    return "medium"
+
+
+def _build_detailed_evidence_sections(benchmark: dict[str, Any]) -> dict[str, Any]:
+    """Build rich evidence sections used by downstream extractor/scorer."""
+    paper_url = _normalize_url(benchmark.get("paper_url"))
+    code_url = _normalize_url(benchmark.get("code_url"))
+    dataset_url = _normalize_url(benchmark.get("dataset_url"))
+    leaderboard_url = _normalize_url(benchmark.get("leaderboard_url"))
+    project_url = _project_url(benchmark)
+    readme_url = _github_readme_url(code_url)
+    task_type = _normalize_text(benchmark.get("task_type"))
+    benchmark_name = _normalize_text(benchmark.get("name")) or ""
+    repo_id = _github_repo_id_from_url(code_url)
+    repo_meta = _fetch_github_repo_meta(repo_id) if repo_id else {}
+    error_status = repo_meta.get("_error_status")
+    error_message = _normalize_text(repo_meta.get("_error_message"))
+    github_api_status = (
+        "ok"
+        if repo_id and not error_status
+        else "not_github_repo"
+        if not repo_id
+        else "rate_limited_or_forbidden"
+        if error_status == 403
+        else "request_failed"
+    )
+    stars = repo_meta.get("stargazers_count")
+    forks = repo_meta.get("forks_count")
+    pushed_at = _normalize_text(repo_meta.get("pushed_at"))
+    pushed_dt = _parse_iso_utc(pushed_at)
+    recent_activity = (
+        "true"
+        if pushed_dt and (datetime.now(timezone.utc) - pushed_dt) <= timedelta(days=180)
+        else "false"
+        if pushed_dt
+        else "unknown"
+    )
+
+    resource = _score(benchmark.get("resource_completeness"))
+    reproduction = _score(benchmark.get("reproduction_difficulty"))
+    teaching = _score(benchmark.get("teaching_value"))
+    research = _score(benchmark.get("research_value"))
+    popularity = _score(benchmark.get("topic_popularity"))
+    time_friendly = _score(benchmark.get("time_cost_friendliness"))
+    docs = _score(benchmark.get("documentation_quality"))
+    authority = _score(benchmark.get("authority"))
+
+    requirements = _requirements_from_task(task_type)
+    requires_gpu = "true" if reproduction >= 4 else "false"
+    requires_api_key = "depends_on_agent_model" if "agent" in (task_type or "").lower() else "optional"
+    quick_walkthrough = "true" if readme_url else "false"
+    install_available = "true" if code_url else "false"
+
+    return {
+        "project_url": project_url,
+        "resource_evidence": {
+            "paper_available": "true" if paper_url else "false",
+            "code_available": "true" if code_url else "false",
+            "dataset_available": "true" if dataset_url else "false",
+            "leaderboard_available": "true" if leaderboard_url else "false",
+            "official_site_available": "true" if project_url else "false",
+            "install_instructions_available": install_available,
+            "quick_walkthrough_available": quick_walkthrough,
+            "docker_or_environment_files_available": "true" if reproduction >= 4 else "unknown",
+            "evidence_notes": f"Resource completeness score={resource}; evidence links include paper/code/dataset/leaderboard/readme where available.",
+        },
+        "reproduction_evidence": {
+            "setup_requirements": requirements,
+            "requires_gpu": requires_gpu,
+            "requires_api_key": requires_api_key,
+            "estimated_setup_cost": _estimated_setup_cost(reproduction),
+            "reproduction_notes": f"Reproduction difficulty={reproduction} (higher is harder). Complexity inferred from task type and setup dependencies.",
+        },
+        "teaching_evidence": {
+            "task_clarity": _high_level_tag(teaching),
+            "example_tasks_available": "true" if code_url or dataset_url else "false",
+            "classroom_demo_value": _high_level_tag(teaching),
+            "student_friendliness": _high_level_tag(time_friendly),
+            "teaching_notes": f"Teaching value={teaching}; time friendliness={time_friendly}. README/examples availability used as proxy evidence.",
+        },
+        "research_evidence": {
+            "representative_benchmark": "true" if research >= 4 else "likely",
+            "realistic_environment": "true" if "web" in (task_type or "").lower() or "agent" in (task_type or "").lower() else "partial",
+            "leaderboard_available": "true" if leaderboard_url else "false",
+            "baseline_results_available": "true" if paper_url else "likely",
+            "research_notes": f"Research value={research}; authority={authority}. Presence of paper/leaderboard/code improves research comparability.",
+        },
+        "popularity_evidence": {
+            "github_repository_available": "true" if code_url else "false",
+            "github_api_status": github_api_status,
+            "github_api_error_message": error_message or "none",
+            "github_stars": stars if isinstance(stars, int) else "unknown",
+            "github_forks": forks if isinstance(forks, int) else "unknown",
+            "leaderboard_or_project_available": "true" if leaderboard_url or project_url else "false",
+            "recent_repository_activity": recent_activity,
+            "last_push_utc": pushed_at or "unknown",
+            "related_benchmarks_or_extensions": RELATED_BENCHMARKS.get(benchmark_name, []),
+            "popularity_notes": (
+                f"Topic popularity score={popularity}; "
+                f"stars={stars if isinstance(stars, int) else 'unknown'}, "
+                f"forks={forks if isinstance(forks, int) else 'unknown'}, "
+                f"recent_activity={recent_activity}."
+            ),
+        },
+        "time_cost_evidence": {
+            "quick_walkthrough_available": quick_walkthrough,
+            "small_demo_possible": "true" if time_friendly >= 3 else "false",
+            "full_evaluation_cost": _estimated_setup_cost(reproduction),
+            "estimated_demo_time": "hours_to_1_day" if time_friendly >= 4 else "1-2_days" if time_friendly == 3 else "multiple_days",
+            "estimated_full_reproduction_time": "multiple_days" if reproduction >= 4 else "1-2_days" if reproduction == 3 else "hours_to_1_day",
+            "time_cost_notes": f"Time friendliness={time_friendly}; reproduction difficulty={reproduction}.",
+        },
+        "documentation_evidence": {
+            "readme_quality": _high_level_tag(docs),
+            "installation_steps_available": install_available,
+            "examples_available": "true" if code_url or dataset_url else "false",
+            "evaluation_instructions_available": "likely" if paper_url or leaderboard_url else "unknown",
+            "documentation_notes": f"Documentation quality score={docs}; README and project docs links are used as evidence.",
+        },
+        "authority_evidence": {
+            "paper_available": "true" if paper_url else "false",
+            "official_project_site": "true" if project_url else "false",
+            "official_github_repository": "true" if code_url else "false",
+            "leaderboard_available": "true" if leaderboard_url else "false",
+            "authority_notes": f"Authority score={authority}; based on availability of paper/repo/project/leaderboard.",
+        },
+    }
 
 
 def _build_report_from_results(topic: str, plan: dict, results: list[dict]) -> str:
@@ -658,6 +992,7 @@ def _build_report_from_results(topic: str, plan: dict, results: list[dict]) -> s
 
     lines.extend(["", "## Benchmark Candidates"])
     for index, benchmark in enumerate(candidates, start=1):
+        detailed_sections = _build_detailed_evidence_sections(benchmark)
         lines.append(f"### Benchmark {index}: {benchmark['name']}")
         lines.append(f"name: {_render_scalar(benchmark.get('name'))}")
         lines.append(f"description: {_render_scalar(benchmark.get('description'))}")
@@ -668,7 +1003,16 @@ def _build_report_from_results(topic: str, plan: dict, results: list[dict]) -> s
         lines.append(f"code_url: {_render_scalar(benchmark.get('code_url'))}")
         lines.append(f"dataset_url: {_render_scalar(benchmark.get('dataset_url'))}")
         lines.append(f"leaderboard_url: {_render_scalar(benchmark.get('leaderboard_url'))}")
+        lines.append(f"project_url: {_render_scalar(detailed_sections.get('project_url'))}")
         lines.append(f"open_source: {_to_bool_text(benchmark.get('open_source'))}")
+        _append_yaml_section(lines, "resource_evidence", detailed_sections["resource_evidence"])
+        _append_yaml_section(lines, "reproduction_evidence", detailed_sections["reproduction_evidence"])
+        _append_yaml_section(lines, "teaching_evidence", detailed_sections["teaching_evidence"])
+        _append_yaml_section(lines, "research_evidence", detailed_sections["research_evidence"])
+        _append_yaml_section(lines, "popularity_evidence", detailed_sections["popularity_evidence"])
+        _append_yaml_section(lines, "time_cost_evidence", detailed_sections["time_cost_evidence"])
+        _append_yaml_section(lines, "documentation_evidence", detailed_sections["documentation_evidence"])
+        _append_yaml_section(lines, "authority_evidence", detailed_sections["authority_evidence"])
         lines.append(f"resource_completeness: {_score(benchmark.get('resource_completeness'))}")
         lines.append(f"reproduction_difficulty: {_score(benchmark.get('reproduction_difficulty'))}")
         lines.append(f"teaching_value: {_score(benchmark.get('teaching_value'))}")
@@ -681,9 +1025,23 @@ def _build_report_from_results(topic: str, plan: dict, results: list[dict]) -> s
             f"documentation_quality: {_score(benchmark.get('documentation_quality'))}"
         )
         lines.append(f"authority: {_score(benchmark.get('authority'))}")
+        _append_yaml_section(
+            lines,
+            "suggested_scores_for_extractor",
+            {
+                "resource_completeness": _score(benchmark.get("resource_completeness")),
+                "reproduction_difficulty": _score(benchmark.get("reproduction_difficulty")),
+                "teaching_value": _score(benchmark.get("teaching_value")),
+                "research_value": _score(benchmark.get("research_value")),
+                "topic_popularity": _score(benchmark.get("topic_popularity")),
+                "time_cost_friendliness": _score(benchmark.get("time_cost_friendliness")),
+                "documentation_quality": _score(benchmark.get("documentation_quality")),
+                "authority": _score(benchmark.get("authority")),
+            },
+        )
         lines.append(f"limitations: {_render_scalar(benchmark.get('limitations'))}")
         lines.append(f"suitable_usage: {_render_scalar(benchmark.get('suitable_usage'))}")
-        _append_yaml_list(lines, "evidence", benchmark.get("evidence", []))
+        _append_yaml_list(lines, "evidence", _normalize_list(benchmark.get("evidence")))
         lines.append("")
 
     lines.extend([
