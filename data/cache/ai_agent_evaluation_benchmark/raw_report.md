@@ -4,160 +4,51 @@
 - topic: AI Agent Evaluation Benchmark
 - mode: 课程实验
 - topic_type: agent
-- generated_at_utc: 2026-05-07T07:34:29.443199+00:00
-- total_search_results: 44
+- generated_at_utc: 2026-05-07T08:14:31.934204+00:00
+- total_search_results: 45
 - note: 本报告用于后续 extractor 抽取，不包含最终推荐排名。
 
 ## Search Goals
-- 了解当前主流的AI Agent评估基准及其评价指标
-- 获取用于课程实验的AI Agent评估基准的完整资源（代码、数据集、文档）
-- 评估不同基准的易用性、再现性和教学价值
-- 比较基准在时间成本和资源需求方面的差异
-- 寻找适合学生实验的快速上手和可复现的基准项目
+- 了解当前主流 AI Agent 评估基准的体系结构和评估指标
+- 查找公开可用的 AI Agent 评估数据集及其下载方式
+- 获取与 AI Agent 评估相关的论文列表及下载链接
+- 找到提供完整代码实现和教程的 GitHub 项目，便于实验复现
+- 评估各基准的资源需求（计算资源、数据规模、运行时间）以及在课程实验中的可行性
 
 ## Search Queries
-- AI agent evaluation benchmark reproducibility course experiment GitHub dataset metrics
-- AI agent benchmark teaching value assignment lab resources open source
-- comparison of AI agent evaluation benchmarks leaderboard metrics reproducibility
-- AI agent evaluation benchmark quickstart guide for course lab assignment
-- AI agent benchmark dataset availability and documentation for teaching
+- AI agent evaluation benchmark paper survey dataset leaderboard metrics
+- AI agent benchmark GitHub open source tutorial reproducibility course lab
+- AI agent evaluation dataset download open source implementation quick start
+- AI agent benchmark resource requirements time cost course experiment feasibility
+- AI agent benchmark reproducibility educational usage teaching materials
 - AI Agent Evaluation Benchmark AgentBench WebArena SWE-bench GAIA OSWorld ToolBench Mind2Web AgentBoard
 - AI Agent Evaluation Benchmark agent evaluation benchmark leaderboard
 - AI Agent Evaluation Benchmark web agent tool use benchmark
 
 ## Search Evidence Snapshot
-1. [ResearchClawBench: Evaluating AI Agents for Automated ... - GitHub](https://github.com/InternScience/ResearchClawBench) | source: tavily | query: `AI agent evaluation benchmark reproducibility course experiment GitHub dataset metrics`
-2. [philschmid/ai-agent-benchmark-compendium ... - GitHub](https://github.com/philschmid/ai-agent-benchmark-compendium) | source: tavily | query: `AI agent evaluation benchmark reproducibility course experiment GitHub dataset metrics`
-3. [15 Datasets for Training and Evaluating AI Agents | by ODSC](https://odsc.medium.com/15-datasets-for-training-and-evaluating-ai-agents-c171dde4e0ce) | source: tavily | query: `AI agent evaluation benchmark reproducibility course experiment GitHub dataset metrics`
-4. [Vvkmnn/awesome-ai-eval - GitHub](https://github.com/Vvkmnn/awesome-ai-eval) | source: tavily | query: `AI agent evaluation benchmark reproducibility course experiment GitHub dataset metrics`
-5. [GitHub - danielrosehill/Awesome-AI-Evaluations-Tools](https://github.com/danielrosehill/Awesome-AI-Evaluations-Tools) | source: tavily | query: `AI agent evaluation benchmark reproducibility course experiment GitHub dataset metrics`
-6. [Benchmarking AI agents against 800+ open source tests - AI Tinkerers](https://nyc.aitinkerers.org/talks/rsvp_oHcOn4pn-yw) | source: tavily | query: `AI agent benchmark teaching value assignment lab resources open source`
-7. [Awesome AI Agents: Tools, Resources, and Projects - GitHub](https://github.com/jim-schwoebel/awesome_ai_agents) | source: tavily | query: `AI agent benchmark teaching value assignment lab resources open source`
-8. [Evaluating AI Agents in 2025 - by Nilesh Barla](https://labs.adaline.ai/p/evaluating-ai-agents-in-2025) | source: tavily | query: `AI agent benchmark teaching value assignment lab resources open source`
-9. [An Open-Source AI Agent for Doing Tasks on the Web | Stanford HAI](https://hai.stanford.edu/news/an-open-source-ai-agent-for-doing-tasks-on-the-web) | source: tavily | query: `AI agent benchmark teaching value assignment lab resources open source`
-10. [AstaBench: Rigorous benchmarking of AI agents with a holistic scientific research suite  | Ai2](https://allenai.org/blog/astabench) | source: tavily | query: `AI agent benchmark teaching value assignment lab resources open source`
-11. [Efficient Benchmarking of AI Agents](https://arxiv.org/html/2603.23749v1) | source: tavily | query: `comparison of AI agent evaluation benchmarks leaderboard metrics reproducibility`
-12. [𝜏-Bench leaderboard: compare, explore, and understand agent performance | Sierra](https://sierra.ai/blog/t-bench-leaderboard) | source: tavily | query: `comparison of AI agent evaluation benchmarks leaderboard metrics reproducibility`
-13. [Agent Evaluation Framework 2026: Metrics, Rubrics & Benchmarks](https://galileo.ai/blog/agent-evaluation-framework-metrics-rubrics-benchmarks) | source: tavily | query: `comparison of AI agent evaluation benchmarks leaderboard metrics reproducibility`
-14. [Best AI Agent Evaluation Benchmarks: 2025 Complete Guide](https://o-mega.ai/articles/the-best-ai-agent-evals-and-benchmarks-full-2025-guide) | source: tavily | query: `comparison of AI agent evaluation benchmarks leaderboard metrics reproducibility`
-15. [AI Agent Benchmarks: What They Measure & Where They Fall Short](https://redis.io/blog/ai-agent-benchmarks/) | source: tavily | query: `comparison of AI agent evaluation benchmarks leaderboard metrics reproducibility`
-16. [The Complete Guide to AI Agent Evaluation: Key Steps, Metrics & Best…](https://delight.ai/blog/ai-agent/ai-agent-evaluation-guide) | source: tavily | query: `AI agent evaluation benchmark quickstart guide for course lab assignment`
-17. [Evaluating AI Agents in 2025: A Practical Guide - Turing College](https://www.turingcollege.com/blog/evaluating-ai-agents-practical-guide) | source: tavily | query: `AI agent evaluation benchmark quickstart guide for course lab assignment`
-18. [Agent Evaluation: How to Test and Measure Agentic AI Performance - MachineLearningMastery.com](https://machinelearningmastery.com/agent-evaluation-how-to-test-and-measure-agentic-ai-performance/) | source: tavily | query: `AI agent evaluation benchmark quickstart guide for course lab assignment`
-19. [AI Agent Evaluation: How to Build Custom Benchmarks That Actually Test Intelligence | MindStudio](https://www.mindstudio.ai/blog/ai-agent-custom-benchmarks-evaluation/) | source: tavily | query: `AI agent evaluation benchmark quickstart guide for course lab assignment`
-20. [Agentic Evaluations: Benchmark AI Agent Quality, Performance & Safety | Solo.io](https://www.solo.io/blog/agentic-quality-benchmarking-with-agent-evals) | source: tavily | query: `AI agent evaluation benchmark quickstart guide for course lab assignment`
+1. [Evaluation and Benchmarking of LLM Agents: A Survey](https://dl.acm.org/doi/abs/10.1145/3711896.3736570) | source: tavily | query: `AI agent evaluation benchmark paper survey dataset leaderboard metrics`
+2. [AI agent benchmarks and eval trends - Scouts by Yutori](https://scouts.yutori.com/ab86f937-6355-4cb2-a74f-ca94c5df744d) | source: tavily | query: `AI agent evaluation benchmark paper survey dataset leaderboard metrics`
+3. [A Systematic Survey of AI Agent Evaluation Methods and Metrics](https://www.researchgate.net/publication/400639175_A_Systematic_Survey_of_AI_Agent_Evaluation_Methods_and_Metrics) | source: tavily | query: `AI agent evaluation benchmark paper survey dataset leaderboard metrics`
+4. [Evaluation and Benchmarking of LLM Agents: A Survey - arXiv](https://arxiv.org/html/2507.21504v1) | source: tavily | query: `AI agent evaluation benchmark paper survey dataset leaderboard metrics`
+5. [ai agent leaderboards.md - GitHub Gist](https://gist.github.com/chunhualiao/c9f5d258aa003f40224303f402d9f3c5) | source: tavily | query: `AI agent evaluation benchmark paper survey dataset leaderboard metrics`
+6. [pearls-lab/ai-agents-course - GitHub](https://github.com/pearls-lab/ai-agents-course) | source: tavily | query: `AI agent benchmark GitHub open source tutorial reproducibility course lab`
+7. [GitHub - artnitolog/awesome-agent-learning: Guides, courses & reading lists for learning to build autonomous LLM agents](https://github.com/artnitolog/awesome-agent-learning) | source: tavily | query: `AI agent benchmark GitHub open source tutorial reproducibility course lab`
+8. [GitHub - Marktechpost/AI-Agents-Projects-Tutorials](https://github.com/Marktechpost/AI-Agents-Projects-Tutorials) | source: tavily | query: `AI agent benchmark GitHub open source tutorial reproducibility course lab`
+9. [philschmid/ai-agent-benchmark-compendium ... - GitHub](https://github.com/philschmid/ai-agent-benchmark-compendium) | source: tavily | query: `AI agent benchmark GitHub open source tutorial reproducibility course lab`
+10. [Awesome AI Agents: Tools, Resources, and Projects - GitHub](https://github.com/jim-schwoebel/awesome_ai_agents) | source: tavily | query: `AI agent benchmark GitHub open source tutorial reproducibility course lab`
+11. [Open Source and Free AI Agent Evaluation Tools - DataTalks.Club](https://datatalks.club/blog/open-source-free-ai-agent-evaluation-tools.html) | source: tavily | query: `AI agent evaluation dataset download open source implementation quick start`
+12. [AI Agent Evaluation | Future AGI Docs](https://docs.futureagi.com/docs/cookbook/ai-agents/) | source: tavily | query: `AI agent evaluation dataset download open source implementation quick start`
+13. [20 Open-Source Datasets for Generative AI and Agentic AI](https://www.analyticsvidhya.com/blog/2025/02/open-source-datasets-for-generative-and-agentic-ai/) | source: tavily | query: `AI agent evaluation dataset download open source implementation quick start`
+14. [state-of-open-source-ai/eval-datasets.md at main - GitHub](https://github.com/premAI-io/state-of-open-source-ai/blob/main/eval-datasets.md) | source: tavily | query: `AI agent evaluation dataset download open source implementation quick start`
+15. [15 Datasets for Training and Evaluating AI Agents | by ODSC](https://odsc.medium.com/15-datasets-for-training-and-evaluating-ai-agents-c171dde4e0ce) | source: tavily | query: `AI agent evaluation dataset download open source implementation quick start`
+16. [AI Agent Benchmarking: Comprehensive Tests & Evaluation ...](https://www.linkedin.com/pulse/ai-agent-benchmarking-comprehensive-tests-evaluation-frameworks-jha-udnpc) | source: tavily | query: `AI agent benchmark resource requirements time cost course experiment feasibility`
+17. [Benchmarking Multi-Agent AI: Insights & Practical Use | Galileo](https://galileo.ai/blog/benchmarks-multi-agent-ai) | source: tavily | query: `AI agent benchmark resource requirements time cost course experiment feasibility`
+18. [AI Agent Benchmarks: What They Measure & Where They Fall Short](https://redis.io/blog/ai-agent-benchmarks/) | source: tavily | query: `AI agent benchmark resource requirements time cost course experiment feasibility`
+19. [Evaluating AI Agents in 2025: A Practical Guide - Turing College](https://www.turingcollege.com/blog/evaluating-ai-agents-practical-guide) | source: tavily | query: `AI agent benchmark resource requirements time cost course experiment feasibility`
+20. [AI Agent Evaluation: How to Build Custom Benchmarks That Actually ...](https://www.mindstudio.ai/blog/ai-agent-custom-benchmarks-evaluation/) | source: tavily | query: `AI agent benchmark resource requirements time cost course experiment feasibility`
 
 ## Benchmark Candidates
-### Benchmark 1: WebArena
-name: WebArena
-description: WebArena benchmark candidate.
-task_type: Web Agent Evaluation
-evaluated_ability:
-  - web navigation
-  - planning
-  - tool use
-metrics:
-  - task success rate
-paper_url: https://arxiv.org/abs/2307.13854
-code_url: https://github.com/web-arena-x/webarena
-dataset_url: https://odsc.medium.com/15-datasets-for-training-and-evaluating-ai-agents-c171dde4e0ce
-leaderboard_url: https://webarena.dev/
-project_url: https://webarena.dev/
-open_source: true
-resource_evidence:
-  paper_available: true
-  code_available: true
-  dataset_available: true
-  leaderboard_available: true
-  official_site_available: true
-  install_instructions_available: true
-  quick_walkthrough_available: true
-  docker_or_environment_files_available: true
-  evidence_notes: Resource completeness score=4; evidence links include paper/code/dataset/leaderboard/readme where available.
-reproduction_evidence:
-  setup_requirements:
-    - Python environment
-    - Browser automation dependencies
-    - Website/service configuration
-  requires_gpu: true
-  requires_api_key: depends_on_agent_model
-  estimated_setup_cost: very_high
-  reproduction_notes: Reproduction difficulty=5 (higher is harder). Complexity inferred from task type and setup dependencies.
-teaching_evidence:
-  task_clarity: medium
-  example_tasks_available: true
-  classroom_demo_value: medium
-  student_friendliness: low
-  teaching_notes: Teaching value=3; time friendliness=2. README/examples availability used as proxy evidence.
-research_evidence:
-  representative_benchmark: true
-  realistic_environment: true
-  leaderboard_available: true
-  baseline_results_available: true
-  research_notes: Research value=5; authority=5. Presence of paper/leaderboard/code improves research comparability.
-popularity_evidence:
-  github_repository_available: true
-  github_api_status: ok
-  github_api_error_message: none
-  github_stars: 1453
-  github_forks: 236
-  leaderboard_or_project_available: true
-  recent_repository_activity: true
-  last_push_utc: 2025-11-26T21:16:00Z
-  related_benchmarks_or_extensions:
-    - VisualWebArena
-    - BrowserGym
-  popularity_notes: Topic popularity score=5; stars=1453, forks=236, recent_activity=true.
-time_cost_evidence:
-  quick_walkthrough_available: true
-  small_demo_possible: false
-  full_evaluation_cost: very_high
-  estimated_demo_time: multiple_days
-  estimated_full_reproduction_time: multiple_days
-  time_cost_notes: Time friendliness=2; reproduction difficulty=5.
-documentation_evidence:
-  readme_quality: high
-  installation_steps_available: true
-  examples_available: true
-  evaluation_instructions_available: likely
-  documentation_notes: Documentation quality score=4; README and project docs links are used as evidence.
-authority_evidence:
-  paper_available: true
-  official_project_site: true
-  official_github_repository: true
-  leaderboard_available: true
-  authority_notes: Authority score=5; based on availability of paper/repo/project/leaderboard.
-resource_completeness: 4
-reproduction_difficulty: 5
-teaching_value: 3
-research_value: 5
-topic_popularity: 5
-time_cost_friendliness: 2
-documentation_quality: 4
-authority: 5
-suggested_scores_for_extractor:
-  resource_completeness: 4
-  reproduction_difficulty: 5
-  teaching_value: 3
-  research_value: 5
-  topic_popularity: 5
-  time_cost_friendliness: 2
-  documentation_quality: 4
-  authority: 5
-limitations: null
-suitable_usage: null
-evidence:
-  - https://arxiv.org/abs/2307.13854
-  - https://github.com/web-arena-x/webarena
-  - https://webarena.dev/
-  - https://github.com/web-arena-x/webarena#readme
-  - https://odsc.medium.com/15-datasets-for-training-and-evaluating-ai-agents-c171dde4e0ce
-  - https://nyc.aitinkerers.org/talks/rsvp_oHcOn4pn-yw
-  - https://byteiota.com/berkeley-breaks-ai-agent-benchmarks-100-scores-zero-solutions/
-  - https://leaderboard.steel.dev/results
-  - https://o-mega.ai/articles/top-10-agentic-evals-benchmarking-actionable-ai-2025
-
-### Benchmark 2: AgentBench
+### Benchmark 1: AgentBench
 name: AgentBench
 description: AgentBench benchmark candidate.
 task_type: LLM-as-Agent Evaluation
@@ -254,27 +145,28 @@ evidence:
   - https://arxiv.org/abs/2308.03688
   - https://github.com/THUDM/AgentBench
   - https://github.com/THUDM/AgentBench#readme
-  - https://galileo.ai/blog/agent-evaluation-framework-metrics-rubrics-benchmarks
-  - https://o-mega.ai/articles/the-best-ai-agent-evals-and-benchmarks-full-2025-guide
+  - https://galileo.ai/blog/benchmarks-multi-agent-ai
   - https://www.turingcollege.com/blog/evaluating-ai-agents-practical-guide
   - https://benchmarkingagents.com/agent-benchmarks/
   - https://github.com/jackjin1997/AgentBench-Live
   - https://github.com/SanJueLogic/MeiGen-DesignAgentBench
+  - https://galileo.ai/blog/agent-evaluation-framework-metrics-rubrics-benchmarks
 
-### Benchmark 3: SWE-bench
-name: SWE-bench
-description: SWE-bench benchmark candidate.
-task_type: Software Engineering Agent Evaluation
+### Benchmark 2: WebArena
+name: WebArena
+description: WebArena benchmark candidate.
+task_type: Web Agent Evaluation
 evaluated_ability:
-  - issue resolution
-  - patch generation
+  - web navigation
+  - planning
+  - tool use
 metrics:
-  - resolved issue rate
-paper_url: https://arxiv.org/abs/2310.06770
-code_url: https://github.com/swe-bench/SWE-bench
+  - task success rate
+paper_url: https://arxiv.org/abs/2307.13854
+code_url: https://github.com/web-arena-x/webarena
 dataset_url: null
-leaderboard_url: https://www.swebench.com/
-project_url: https://www.swebench.com/
+leaderboard_url: https://webarena.dev/
+project_url: https://webarena.dev/
 open_source: true
 resource_evidence:
   paper_available: true
@@ -285,22 +177,22 @@ resource_evidence:
   install_instructions_available: true
   quick_walkthrough_available: true
   docker_or_environment_files_available: true
-  evidence_notes: Resource completeness score=5; evidence links include paper/code/dataset/leaderboard/readme where available.
+  evidence_notes: Resource completeness score=4; evidence links include paper/code/dataset/leaderboard/readme where available.
 reproduction_evidence:
   setup_requirements:
     - Python environment
-    - Repository checkout
-    - Evaluation harness configuration
+    - Browser automation dependencies
+    - Website/service configuration
   requires_gpu: true
   requires_api_key: depends_on_agent_model
-  estimated_setup_cost: high
-  reproduction_notes: Reproduction difficulty=4 (higher is harder). Complexity inferred from task type and setup dependencies.
+  estimated_setup_cost: very_high
+  reproduction_notes: Reproduction difficulty=5 (higher is harder). Complexity inferred from task type and setup dependencies.
 teaching_evidence:
-  task_clarity: high
+  task_clarity: medium
   example_tasks_available: true
-  classroom_demo_value: high
-  student_friendliness: medium
-  teaching_notes: Teaching value=4; time friendliness=3. README/examples availability used as proxy evidence.
+  classroom_demo_value: medium
+  student_friendliness: low
+  teaching_notes: Teaching value=3; time friendliness=2. README/examples availability used as proxy evidence.
 research_evidence:
   representative_benchmark: true
   realistic_environment: true
@@ -311,22 +203,22 @@ popularity_evidence:
   github_repository_available: true
   github_api_status: ok
   github_api_error_message: none
-  github_stars: 4856
-  github_forks: 852
+  github_stars: 1453
+  github_forks: 236
   leaderboard_or_project_available: true
   recent_repository_activity: true
-  last_push_utc: 2026-04-01T05:16:30Z
+  last_push_utc: 2025-11-26T21:16:00Z
   related_benchmarks_or_extensions:
-    - SWE-bench Verified
-    - Agentless
-  popularity_notes: Topic popularity score=5; stars=4856, forks=852, recent_activity=true.
+    - VisualWebArena
+    - BrowserGym
+  popularity_notes: Topic popularity score=5; stars=1453, forks=236, recent_activity=true.
 time_cost_evidence:
   quick_walkthrough_available: true
-  small_demo_possible: true
-  full_evaluation_cost: high
-  estimated_demo_time: 1-2_days
+  small_demo_possible: false
+  full_evaluation_cost: very_high
+  estimated_demo_time: multiple_days
   estimated_full_reproduction_time: multiple_days
-  time_cost_notes: Time friendliness=3; reproduction difficulty=4.
+  time_cost_notes: Time friendliness=2; reproduction difficulty=5.
 documentation_evidence:
   readme_quality: high
   installation_steps_available: true
@@ -339,32 +231,36 @@ authority_evidence:
   official_github_repository: true
   leaderboard_available: true
   authority_notes: Authority score=5; based on availability of paper/repo/project/leaderboard.
-resource_completeness: 5
-reproduction_difficulty: 4
-teaching_value: 4
+resource_completeness: 4
+reproduction_difficulty: 5
+teaching_value: 3
 research_value: 5
 topic_popularity: 5
-time_cost_friendliness: 3
+time_cost_friendliness: 2
 documentation_quality: 4
 authority: 5
 suggested_scores_for_extractor:
-  resource_completeness: 5
-  reproduction_difficulty: 4
-  teaching_value: 4
+  resource_completeness: 4
+  reproduction_difficulty: 5
+  teaching_value: 3
   research_value: 5
   topic_popularity: 5
-  time_cost_friendliness: 3
+  time_cost_friendliness: 2
   documentation_quality: 4
   authority: 5
 limitations: null
 suitable_usage: null
 evidence:
-  - https://arxiv.org/abs/2310.06770
-  - https://github.com/swe-bench/SWE-bench
-  - https://www.swebench.com/
-  - https://github.com/swe-bench/SWE-bench#readme
+  - https://arxiv.org/abs/2307.13854
+  - https://github.com/web-arena-x/webarena
+  - https://webarena.dev/
+  - https://github.com/web-arena-x/webarena#readme
+  - https://byteiota.com/berkeley-breaks-ai-agent-benchmarks-100-scores-zero-solutions/
+  - https://benchlm.ai/benchmarks/webArena
+  - https://leaderboard.steel.dev/results
+  - https://o-mega.ai/articles/top-10-agentic-evals-benchmarking-actionable-ai-2025
 
-### Benchmark 4: GAIA
+### Benchmark 3: GAIA
 name: GAIA
 description: GAIA benchmark candidate.
 task_type: General Assistant / Agent Evaluation
@@ -464,6 +360,109 @@ evidence:
   - https://huggingface.co/spaces/gaia-benchmark/leaderboard
   - https://github.com/Pandagan-85/React_agent_Gaia
   - https://github.com/pradeepdas/gaia-agentbeats
+
+### Benchmark 4: SWE-bench
+name: SWE-bench
+description: SWE-bench benchmark candidate.
+task_type: Software Engineering Agent Evaluation
+evaluated_ability:
+  - issue resolution
+  - patch generation
+metrics:
+  - resolved issue rate
+paper_url: https://arxiv.org/abs/2310.06770
+code_url: https://github.com/swe-bench/SWE-bench
+dataset_url: null
+leaderboard_url: https://www.swebench.com/
+project_url: https://www.swebench.com/
+open_source: true
+resource_evidence:
+  paper_available: true
+  code_available: true
+  dataset_available: false
+  leaderboard_available: true
+  official_site_available: true
+  install_instructions_available: true
+  quick_walkthrough_available: true
+  docker_or_environment_files_available: true
+  evidence_notes: Resource completeness score=5; evidence links include paper/code/dataset/leaderboard/readme where available.
+reproduction_evidence:
+  setup_requirements:
+    - Python environment
+    - Repository checkout
+    - Evaluation harness configuration
+  requires_gpu: true
+  requires_api_key: depends_on_agent_model
+  estimated_setup_cost: high
+  reproduction_notes: Reproduction difficulty=4 (higher is harder). Complexity inferred from task type and setup dependencies.
+teaching_evidence:
+  task_clarity: high
+  example_tasks_available: true
+  classroom_demo_value: high
+  student_friendliness: medium
+  teaching_notes: Teaching value=4; time friendliness=3. README/examples availability used as proxy evidence.
+research_evidence:
+  representative_benchmark: true
+  realistic_environment: true
+  leaderboard_available: true
+  baseline_results_available: true
+  research_notes: Research value=5; authority=5. Presence of paper/leaderboard/code improves research comparability.
+popularity_evidence:
+  github_repository_available: true
+  github_api_status: ok
+  github_api_error_message: none
+  github_stars: 4857
+  github_forks: 852
+  leaderboard_or_project_available: true
+  recent_repository_activity: true
+  last_push_utc: 2026-04-01T05:16:30Z
+  related_benchmarks_or_extensions:
+    - SWE-bench Verified
+    - Agentless
+  popularity_notes: Topic popularity score=5; stars=4857, forks=852, recent_activity=true.
+time_cost_evidence:
+  quick_walkthrough_available: true
+  small_demo_possible: true
+  full_evaluation_cost: high
+  estimated_demo_time: 1-2_days
+  estimated_full_reproduction_time: multiple_days
+  time_cost_notes: Time friendliness=3; reproduction difficulty=4.
+documentation_evidence:
+  readme_quality: high
+  installation_steps_available: true
+  examples_available: true
+  evaluation_instructions_available: likely
+  documentation_notes: Documentation quality score=4; README and project docs links are used as evidence.
+authority_evidence:
+  paper_available: true
+  official_project_site: true
+  official_github_repository: true
+  leaderboard_available: true
+  authority_notes: Authority score=5; based on availability of paper/repo/project/leaderboard.
+resource_completeness: 5
+reproduction_difficulty: 4
+teaching_value: 4
+research_value: 5
+topic_popularity: 5
+time_cost_friendliness: 3
+documentation_quality: 4
+authority: 5
+suggested_scores_for_extractor:
+  resource_completeness: 5
+  reproduction_difficulty: 4
+  teaching_value: 4
+  research_value: 5
+  topic_popularity: 5
+  time_cost_friendliness: 3
+  documentation_quality: 4
+  authority: 5
+limitations: null
+suitable_usage: null
+evidence:
+  - https://arxiv.org/abs/2310.06770
+  - https://github.com/swe-bench/SWE-bench
+  - https://www.swebench.com/
+  - https://github.com/swe-bench/SWE-bench#readme
 
 ### Benchmark 5: OSWorld
 name: OSWorld

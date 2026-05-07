@@ -19,7 +19,7 @@ BenchmarkRadarAgent 是一个面向 AI Benchmark 调研的智能体系统。
 输入研究主题和推荐模式，自动完成搜索、抽取、评分和报告生成。
 """)
 
-# Input section
+# ---- Input section ----
 col1, col2 = st.columns(2)
 
 with col1:
@@ -38,25 +38,122 @@ with col2:
 
 use_cache = st.checkbox("使用缓存", value=True)
 
+# ---- Run pipeline ----
 if st.button("🚀 开始分析", type="primary"):
     if not topic:
         st.error("请输入调研主题")
     else:
         st.session_state.result = None
-        with st.status("Agent 执行过程...", expanded=True) as status:
-            try:
-                st.write("⏳ 启动 Planner Agent 生成搜索计划...")
-                st.write("⏳ 唤醒 Search Agent 检索资料 (接口/缓存)...")
-                st.write("⏳ 唤醒 Extractor Agent 抽取 Benchmark 信息...")
-                st.write("⏳ 唤醒 Scorer Agent 计算 Task-Fit Score...")
-                st.write("⏳ 唤醒 Judge Agent 生成推荐理由...")
-                st.write("⏳ 唤醒 Report Agent 生成 Markdown 报告...")
-                result = run_benchmark_radar(topic, mode, use_cache)
-                st.session_state.result = result
-                status.update(label="✅ 数据分析完成！", state="complete", expanded=False)
-            except Exception as e:
-                status.update(label="❌ 数据分析失败", state="error", expanded=False)
-                st.error(f"执行过程中发生错误: {e}")
+
+        # UI placeholders for each step
+        plan_placeholder = st.empty()
+        search_placeholder = st.empty()
+        extract_placeholder = st.empty()
+        score_placeholder = st.empty()
+        judge_placeholder = st.empty()
+        report_placeholder = st.empty()
+
+        def on_progress(step: str, data: dict):
+            """Update Streamlit UI based on pipeline progress."""
+            status = data.get("status", "")
+
+            # --- Planner ---
+            if step == "planner":
+                if status == "running":
+                    plan_placeholder.info("🔍 **Planner** — 正在生成搜索计划...")
+                elif status == "done":
+                    plan_data = data.get("plan", {})
+                    goals = plan_data.get("search_goals", [])
+                    queries = plan_data.get("search_queries", [])
+                    lines = ["✅ **Planner** — 搜索计划已生成\n"]
+                    lines.append("**搜索目标:**")
+                    for g in goals[:5]:
+                        lines.append(f"- {g}")
+                    lines.append(f"\n**搜索查询:**")
+                    for q in queries[:5]:
+                        lines.append(f"- `{q}`")
+                    plan_placeholder.markdown("\n".join(lines))
+
+            # --- Searcher ---
+            elif step == "search":
+                if status == "running":
+                    search_placeholder.info("🌐 **Searcher** — 正在多源检索资料 (Tavily/arXiv/GitHub/DDG)...")
+                elif status == "done":
+                    count = data.get("candidate_count", 0)
+                    search_placeholder.success(f"✅ **Searcher** — 检索完成，发现 **{count}** 个候选 Benchmark")
+
+            # --- Extractor ---
+            elif step == "extract":
+                if status == "running":
+                    extract_placeholder.info("📄 **Extractor** — LLM 正在从报告中抽取结构化 Benchmark...")
+                elif status == "done":
+                    names = data.get("benchmark_names", [])
+                    count = data.get("benchmark_count", 0)
+                    lines = [f"✅ **Extractor** — 抽取完成，获得 **{count}** 个 Benchmark:\n"]
+                    for i, name in enumerate(names, 1):
+                        lines.append(f"| {i} | **{name}** |")
+                    if lines:
+                        header = lines[0]
+                        table = "\n".join(lines[1:])
+                        extract_placeholder.markdown(f"{header}\n\n| # | 名称 |\n|---|------|\n{table}")
+                    else:
+                        extract_placeholder.success(f"✅ **Extractor** — 抽取完成")
+
+            # --- Scorer ---
+            elif step == "score":
+                if status == "running":
+                    score_placeholder.info("📊 **Scorer** — 正在计算 Task-Fit Score...")
+                elif status == "done":
+                    top3 = data.get("top3", [])
+                    lines = [f"✅ **Scorer** — 评分排序完成 (共 {data.get('ranked_count', 0)} 个)\n"]
+                    lines.append("**Top 3:**")
+                    for item in top3:
+                        lines.append(f"- **{item['name']}**: {item['score']:.2f}")
+                    score_placeholder.markdown("\n".join(lines))
+
+            # --- Judge ---
+            elif step == "judge":
+                total = data.get("total", 0)
+                current = data.get("current", 0)
+                name = data.get("name", "")
+                if status == "running":
+                    judge_placeholder.info(f"⚖️ **Judge** — 即将为 {total} 个 Benchmark 生成推荐理由...")
+                elif status == "progress":
+                    judge_placeholder.info(f"⚖️ **Judge** — 正在分析 [{current}/{total}] **{name}** ...")
+                elif status == "item_done":
+                    thinking_text = data.get("thinking", "")
+                    thinking_html = ""
+                    if thinking_text:
+                        thinking_html = f'<details><summary>💭 模型思考过程</summary><pre style="white-space:pre-wrap;font-size:0.85em;background:#f5f5f5;padding:8px;border-radius:4px;">{thinking_text[:800]}</pre></details>'
+                    judge_placeholder.markdown(
+                        f"⚖️ **Judge** — [{current}/{total}] **{name}** (Score: {data.get('score', 0):.2f})  ✅\n{thinking_html}",
+                        unsafe_allow_html=True,
+                    )
+                elif status == "done":
+                    pass  # Let the last item_done message stay visible
+
+            # --- Reporter ---
+            elif step == "report":
+                if status == "running":
+                    report_placeholder.info("📝 **Reporter** — LLM 正在生成最终报告...")
+                elif status == "done":
+                    thinking_text = data.get("thinking", "")
+                    thinking_html = ""
+                    if thinking_text:
+                        thinking_html = f'<details open><summary>💭 模型思考过程</summary><pre style="white-space:pre-wrap;font-size:0.85em;background:#f5f5f5;padding:8px;border-radius:4px;">{thinking_text[:1000]}</pre></details>'
+                    report_placeholder.markdown(
+                        f"✅ **Reporter** — 最终报告已生成\n{thinking_html}",
+                        unsafe_allow_html=True,
+                    )
+
+        try:
+            result = run_benchmark_radar(topic, mode, use_cache, progress_callback=on_progress)
+            st.session_state.result = result
+        except Exception as e:
+            st.error(f"执行过程中发生错误: {e}")
+            st.stop()
+
+        st.success("🎉 全流程完成！")
 
 if st.session_state.get("result"):
     result = st.session_state.result
@@ -74,8 +171,7 @@ if st.session_state.get("result"):
         display_cols = ["rank", "name", "task_fit_score", "teaching_value",
                        "research_value", "resource_completeness", "reproduction_difficulty"]
         display_cols = [c for c in display_cols if c in df.columns]
-        
-        # 使用 column_config 优化可视化
+
         st.dataframe(
             df[display_cols],
             width="stretch",
@@ -109,7 +205,7 @@ if st.session_state.get("result"):
                 file_name=f"{topic.replace(' ', '_')}_{mode}_report.md",
                 mime="text/markdown"
             )
-        
+
         st.markdown(result["final_report"])
 
 # Sidebar - cached topics

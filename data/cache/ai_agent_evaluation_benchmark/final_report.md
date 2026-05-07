@@ -1,25 +1,66 @@
-1. Research topic: AI Agent Evaluation Benchmark
-2. Recommended mode: 课程实验 (Course Experiment)
-3. There are 7 benchmarks ranked by Task-Fit Score
+1. **Topic**: AI Agent Evaluation Benchmark
+2. **Mode**: 课程实验 (Course Experiment)
+3. **Benchmarks**: 7 benchmarks total, ranked by Task-Fit Score
 
-The benchmarks in order:
-1. Mind2Web - Score 3.8
-2. ToolBench - Score 3.8
-3. SWE-bench - Score 3.65
-4. AgentBench - Score 3.5
-5. GAIA - Score 3.2
-6. WebArena - Score 2.9
-7. OSWorld - Score 2.5
+Let me organize the data:
 
-I need to create a well-structured report following the exact format provided, including:
-- All sections as specified
-- A comparison table with rankings
-- Detailed analysis of top 3 benchmarks
-- Recommendations
-- Limitations
-- References with actual links from the data
+**Rankings by Task-Fit Score:**
+1. Mind2Web - 3.75
+2. ToolBench - 3.7
+3. GAIA - 3.6
+4. SWE-bench - 3.45
+5. AgentBench - 3.4
+6. WebArena - 3.1
+7. OSWorld - 2.1
 
-Let me generate this comprehensive report in Chinese as the user input is in Chinese.
+**Key metrics from the data:**
+- Resource completeness ranges from 3-4
+- Reproduction difficulty ranges from 2-5
+- Teaching value ranges from 2-4
+- Research value ranges from 3-5
+- Topic popularity ranges from 3-5
+- Time cost friendliness ranges from 1-4
+- Documentation quality ranges from 3-4
+- Authority ranges from 4-5
+
+Now let me generate the report following the exact format requested:
+
+```markdown
+# BenchmarkRadar Report: AI Agent Evaluation Benchmark
+
+## 1. 调研主题
+AI Agent Evaluation Benchmark
+
+## 2. 推荐模式
+课程实验
+
+## 3. 背景与动机
+Brief introduction about why this research direction is important...
+
+## 4. Benchmark 总览
+Overview of the 7 benchmarks...
+
+## 5. Benchmark 结构化对比表及排名
+Table with all 7 benchmarks...
+
+## 6. Top Benchmark 深度分析
+Detailed analysis of top 3...
+
+## 7. 推荐使用方案
+Recommendations based on mode...
+
+## 8. 局限性
+Limitations of the report...
+
+## 9. 参考资料
+
+
+References with links...
+```
+
+I'll now write the full report in Chinese with all the data properly organized.
+
+
 # BenchmarkRadar Report: AI Agent Evaluation Benchmark
 
 ## 1. 调研主题
@@ -32,263 +73,192 @@ AI Agent Evaluation Benchmark
 
 ## 3. 背景与动机
 
-随着大语言模型（LLM）技术的快速发展，AI Agent（人工智能代理）已成为当前最具前景的研究方向之一。AI Agent 具备自主规划、工具调用、多步骤推理和环境交互等核心能力，能够在复杂任务场景中代替人类完成多样化的工作。然而，如何系统性地评估 AI Agent 的能力水平，成为学术界和工业界共同关注的核心问题。
+随着大型语言模型（LLM）技术的快速发展，AI Agent（人工智能代理）已成为当前学术研究和工业应用的核心方向之一。AI Agent 能够自主完成复杂任务，如网页导航、代码生成、工具调用和操作系统控制等。然而，如何科学、系统地评估 AI Agent 的能力边界仍是该领域面临的关键挑战。
 
-**Benchmark 调研的重要性体现在以下几个方面：**
-
-- **评估标准化需求**：随着 AI Agent 应用的不断拓展，亟需建立统一的评估标准和基准测试体系，以客观衡量不同 Agent 系统的能力差异；
-- **模型迭代指导**：高质量的评估基准能够为模型优化提供明确的改进方向，帮助研究人员识别当前模型的不足；
-- **教学与人才培养**：对于高校课程设计而言，选择合适的评估基准作为实验项目，可以帮助学生深入理解 AI Agent 的核心技术原理，培养实践能力；
-- **科研与实践桥梁**：评估基准连接了理论研究与实际应用，有助于推动 AI Agent 技术从实验室走向真实场景。
-
-本次调研聚焦于课程实验场景，系统性地梳理和评估了主流的 AI Agent Evaluation Benchmark，旨在为教育工作者和学生提供切实可行的基准选择建议。
+Benchmark（基准测试）在 AI Agent 研究中扮演着至关重要的角色。它不仅为研究者提供了统一的评估标准和量化指标，还能够帮助学生和开发者理解不同 Agent 系统的能力差异。本报告针对 **课程实验** 这一推荐模式，对主流的 AI Agent Evaluation Benchmark 进行系统梳理和深度分析，旨在帮助教育者和学生快速定位适合教学实践的高质量评测基准，降低实验门槛，提升学习效率。
 
 ## 4. Benchmark 总览
 
-本次调研共抽取了 **7 个** AI Agent 评估基准，涵盖了 Web 代理、工具调用、软件工程、操作系统操作、多环境交互以及通用 AI 助手等多个核心应用领域。这些基准均来自学术界和工业界的最新研究成果，具备较高的权威性和影响力。
+本报告共抽取并分析了 **7 个** AI Agent 评测基准，涵盖 Web 代理、工具学习、软件工程、通用助手和操作系统等多个核心领域。整体来看，这 7 个基准均已开源，具备较高的研究价值，但在教学适用性上存在显著差异。
 
-从整体情况来看，本次调研的基准呈现以下特点：
+从资源完整度来看，大多数基准（5/7）提供了 4/5 的资源完整度评分，说明其代码、数据集和文档配套相对完善。从复现难度来看，评分跨度较大（2-5 分），其中 Mind2Web 和 GAIA 复现友好度最高（2/5），而 OSWorld 复现难度最大（5/5）。从时间友好度来看，GAIA 表现最佳（4/5），而 OSWorld 仅为 1/5，不适合短期课程项目。
 
-| 维度 | 观察 |
-|------|------|
-| **任务类型覆盖** | 覆盖 Web 导航、API 调用、代码修复、系统操作、知识库问答等典型 Agent 任务场景 |
-| **开源情况** | 5 个完全开源，1 个部分开源，1 个闭源，开源率较高 |
-| **资源完整度** | 头部基准资源完整度达 4/5，但部分新兴基准资源相对有限 |
-| **教学适配性** | 复现难度和时间成本差异显著，需根据课程实际条件选择 |
-| **权威性** | 多数基准来自顶会论文或知名研究团队，学术认可度高 |
+所有基准均支持开源获取，学生可以访问论文、代码仓库和数据集进行学习和实践。综合 Task-Fit Score 排名，排名前三的 **Mind2Web、ToolBench 和 GAIA** 在课程实验场景下展现出最佳的综合适配性。
 
 ## 5. Benchmark 结构化对比表及排名
 
-| 排名 | Benchmark 名称 | Task-Fit Score | 任务类型 | 教学价值 | 科研价值 | 资源完整度 | 开源 |
-|:---:|----------------|:--------------:|----------|:--------:|:--------:|:----------:|:----:|
-| 1 | Mind2Web | 3.8 | Web Agent Evaluation | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ✅ |
-| 2 | ToolBench | 3.8 | Tool Use Agent Evaluation | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ✅ |
-| 3 | SWE-bench | 3.65 | Software Engineering Agent Evaluation | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ✅ |
-| 4 | AgentBench | 3.5 | Multi-environment Agent Evaluation | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ✅ |
-| 5 | GAIA | 3.2 | General AI Assistant Evaluation | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ | ❌ |
-| 6 | WebArena | 2.9 | Web Agent Evaluation | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ✅ |
-| 7 | OSWorld | 2.5 | OS Operation Agent Evaluation | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ✅ |
-
-**评分说明**：Task-Fit Score 综合考虑了复现难度、教学价值、资源完整度、时间成本等多个维度，满分 5 分。排名越高表示越适合课程实验场景。
+| 排名 | Benchmark 名称 | Task-Fit Score | 任务类型 | 教学价值 | 科研价值 | 资源完整度 |
+|:---:|---|---|:---:|:---:|:---:|:---:|
+| 1 | Mind2Web | 3.75 | Web Agent Evaluation | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| 2 | ToolBench | 3.70 | Tool Learning Evaluation | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| 3 | GAIA | 3.60 | General AI Assistant Evaluation | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ |
+| 4 | SWE-bench | 3.45 | Software Engineering Agent Evaluation | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| 5 | AgentBench | 3.40 | LLM-as-Agent Evaluation | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| 6 | WebArena | 3.10 | Web Agent Evaluation | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| 7 | OSWorld | 2.10 | OS Agent Evaluation | ⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ |
 
 ## 6. Top Benchmark 深度分析
 
-### 6.1 Mind2Web — 课程实验首选
+### 6.1 Mind2Web（排名第 1，Task-Fit Score: 3.75）
 
-**基本概况**
+**基本概述**
 
-| 维度 | 详情 |
-|------|------|
-| **Task-Fit Score** | 3.8（并列第 1） |
-| **任务类型** | Web Agent Evaluation |
-| **评估能力** | Web 理解、用户交互、信息检索、任务完成 |
-| **评测指标** | 任务成功率、动作准确率、步骤完成率 |
-| **开源情况** | 完全开源 |
+Mind2Web 是一个专注于 Web 代理评测的数据集，包含真实的网页交互任务，旨在评估 AI Agent 在复杂 Web 环境中的导航、操作和推理能力。该基准由俄亥俄州立大学（OSU）NLP 团队开发和维护，在学术界具有较高的影响力。
 
 **核心优势**
 
-1. **教学价值突出（4/5）**：Mind2Web 提供真实世界的 Web 任务场景，学生可以直接体验 AI Agent 如何理解和操作网页，包括点击、输入、搜索等交互行为，理论与实践结合紧密。
-   
-2. **复现难度适中（3/5）**：该基准在复现友好度上表现优秀，学生无需复杂的硬件配置即可上手，降低了课程实验的技术门槛。
+1. **复现友好度高**：复现难度仅为 2/5，学生可以在短时间内完成环境搭建和基准测试，降低了课程实验的入门门槛。
+2. **教学价值突出**：教学价值评分高达 4/5，任务场景直观易懂，学生可以快速理解 Web 代理的工作原理和评估方法。
+3. **资源完整度优秀**：提供完整的开源代码（GitHub）和 HuggingFace 数据集，学生可以方便地获取实验材料。
+4. **适合课堂演示**：Web 交互任务可视化程度高，教师可以在课堂上演示 Agent 的决策过程，增强教学效果。
 
-3. **资源完整度高（4/5）**：GitHub 仓库提供完整代码，HuggingFace 提供即插即用的数据集接口，学生可以快速加载数据并开展实验。
+**局限性**
 
-4. **评测指标清晰**：任务成功率、动作准确率、步骤完成率等指标易于理解和实现，有助于学生理解评估逻辑。
+数据集规模相对较小，评估场景有限。对于需要大规模验证的科研项目可能不够充分，但对于基础课程作业而言足够使用。
 
-5. **适用场景丰富**：适合 Web 代理基础训练、交互式 AI 教学、学生实验项目等多种课程形式。
+**适用场景**
 
-**适用场景与局限性**
-
-- **适用场景**：Web 代理入门课程、交互式 AI 教学项目、课程大作业
-- **局限性**：主要针对英文网站，跨语言能力评估有限，部分任务依赖特定网站结构
+- Web 代理入门学习
+- 课堂教学演示
+- 课程作业和小型实验项目
 
 **推荐理由**
 
-> Mind2Web 在课程实验模式下获得了 3.8 的 Task-Fit 评分，排名第 1，具备教学价值 4/5、复现难度 3/5 的适中门槛，非常适合作为 Web 代理课程的入门实验。该数据集提供完整的开源代码与 HuggingFace 数据集接口，学生能够快速上手真实网页交互任务。虽然主要针对英文网站环境可能带来一定局限性，但其清晰的评测指标（任务成功率、动作准确率）和丰富的实验资源足以支撑学生完成从理论到实践的系统学习。
+> Mind2Web 在课程实验模式下 Task-Fit Score 达 3.75，排名第 1。教学价值 4/5、资源完整度 4/5，且复现难度仅 2/5（复现友好度高），非常适合学生进行 Web 交互代理的入门学习和课堂演示。虽然数据集规模相对较小、评估场景有限，但对于基础课程作业而言足够使用，开源代码和数据集已开源，学生可以快速上手实践。
 
 ---
 
-### 6.2 ToolBench — 工具学习实验利器
+### 6.2 ToolBench（排名第 2，Task-Fit Score: 3.70）
 
-**基本概况**
+**基本概述**
 
-| 维度 | 详情 |
-|------|------|
-| **Task-Fit Score** | 3.8（并列第 1） |
-| **任务类型** | Tool Use Agent Evaluation |
-| **评估能力** | 工具调用、API 交互、推理、多步规划 |
-| **评测指标** | 工具调用准确率、任务完成率、推理准确率 |
-| **开源情况** | 完全开源 |
+ToolBench 是由清华大学 OpenBMB 团队开发的工具学习评测基准，用于评估 LLM 使用外部工具解决问题的能力。该基准覆盖了丰富的工具 API 调用场景，是当前工具学习领域最具代表性的评测标准之一。
 
 **核心优势**
 
-1. **任务目标明确**：ToolBench 以工具调用与多步规划为核心任务，任务目标清晰，学生可以直观地理解 Agent 如何调用外部工具完成复杂任务。
+1. **任务场景前沿**：工具学习是 Agent 能力的核心组成部分，ToolBench 紧跟学术前沿，能够帮助学生深入理解工具调用的技术原理。
+2. **教学与科研兼顾**：教学价值 4/5、科研价值 4/5，既适合教学演示，也能支撑有一定深度的课程项目。
+3. **资源完整度高**：提供完整的 GitHub 代码仓库和 HuggingFace 数据集，学生可以系统性地学习工具学习的全流程。
+4. **话题热度适中**：Topic Popularity 为 4/5，属于当前 AI 领域的热门方向，有助于学生了解行业发展趋势。
 
-2. **教学价值高（4/5）**：涵盖 API 交互、工具链执行等前沿技术，与当前 RAG（检索增强生成）和 Agent 应用热点高度契合。
+**局限性**
 
-3. **资源完整度优秀（4/5）**：GitHub 与 HuggingFace 双平台开源，学生可以根据自身偏好选择使用方式。
+工具 API 调用可能产生额外成本，工具集规模庞大可能导致实验周期延长。建议教师提前预设简化工具集以控制实验时间。
 
-4. **时间成本可控（4/5）**：学生可在较短周期内完成基本实现与评估，适合课程作业的时间安排。
+**适用场景**
 
-5. **与热点技术关联**：工具学习是当前 AI Agent 研究的核心议题，学习该基准有助于学生把握学术前沿。
-
-**适用场景与局限性**
-
-- **适用场景**：工具学习研究课程、Agent 工具调用训练、RAG 相关教学
-- **局限性**：工具定义需要规范化，API 接口可能随时间变化，评估的一致性需要额外注意
+- 工具学习研究
+- 智能助手开发
+- 中高级课程实验项目
 
 **推荐理由**
 
-> ToolBench 以工具调用与多步规划为核心任务，任务目标清晰，教学价值 4/5，适合作为工具学习与 Agent 调用的课堂实验内容。其资源完整度 4/5，代码与数据集均已在 GitHub 与 HuggingFace 开源，复现友好度 3/5，时间友好度 4/5，学生可在较短周期内完成基本实现与评估。虽然工具定义需规范化、API 接口可能随时间变化，但整体可控。综合 Task-Fit Score 为 3.8，排名第 2，推荐用于课程作业或学生实验项目。
+> ToolBench 任务拟合分数 3.7，排名第 2，是工具学习方向的高质量评测基准，适合作为课程实验选题。教学价值 4/5、资源完整度 4/5，提供了完整的开源代码和数据集，学生可快速上手工具调用与函数推理任务。复现友好度中等（复现难度 3/5），主要挑战在于工具 API 调用成本和工具集规模，建议教师提前预设简化工具集以控制实验时间，整体而言是兼具前沿性和实操性的课程实验候选。
 
 ---
 
-### 6.3 SWE-bench — 软件工程进阶挑战
+### 6.3 GAIA（排名第 3，Task-Fit Score: 3.60）
 
-**基本概况**
+**基本概述**
 
-| 维度 | 详情 |
-|------|------|
-| **Task-Fit Score** | 3.65（第 3 名） |
-| **任务类型** | Software Engineering Agent Evaluation |
-| **评估能力** | 代码生成、Bug 修复、软件工程、代码理解 |
-| **评测指标** | Issue 解决率、测试通过率、补丁正确性 |
-| **开源情况** | 完全开源 |
+GAIA（General AI Assistant）是一个通用 AI 助手评估基准，测试 AI 系统处理多种类型问题的能力，涵盖问答、推理和事实核查等核心能力。该基准旨在提供贴近真实需求的评测场景，评估 Agent 的综合智能水平。
 
 **核心优势**
 
-1. **科研价值顶级（5/5）**：SWE-bench 评估 AI 代理解决真实 GitHub 问题和修复代码 bug 的能力，是当前软件工程 Agent 领域最具影响力的基准之一。
+1. **时间友好度最高**：Time Cost Friendliness 为 4/5，学生在有限的课程周期内即可完成完整的实验流程。
+2. **任务多样性**：覆盖问答、推理和事实核查等多种能力，任务场景贴近真实需求，能够全面评估学生的理解能力。
+3. **数据集易获取**：官方提供 HuggingFace 数据集，数据下载和预处理流程相对简单。
+4. **综合教学价值**：教学价值 4/5，学生可以全面理解通用 AI 助手评估流程，培养系统性思维。
 
-2. **话题热度最高（5/5）**：代码生成和 AI 编程是当前最受关注的 AI 应用方向，学习该基准有助于学生把握行业热点。
+**局限性**
 
-3. **任务贴近实际**：基于实际开源项目中的 Issue 和 PR 数据，任务场景真实，有助于培养学生的工程实践能力。
+代码实现尚不完整，部分评估可能需要人工介入，评估标准的自动化程度有待提升。
 
-4. **权威性突出（5/5）**：来自 Princeton NLP 团队，论文发表于顶会，学术认可度高。
+**适用场景**
 
-**适用场景与局限性**
-
-- **适用场景**：高年级本科生或研究生高级课程项目、代码生成研究、软件工程教育
-- **局限性**：需要较强的代码理解能力和环境配置，评估时间较长，对代理的推理能力要求高
+- 通用 AI 助手评测
+- 课程作业评估
+- AI 基础理论学习
 
 **推荐理由**
 
-> SWE-bench 排名 3，Task-Fit Score 3.65，具有教学价值 4/5、资源完整度 4/5 和话题热度 5/5 等优势，任务聚焦于 AI 修复真实 GitHub 代码 bug，对软件工程教育有较好的指导意义。但其复现友好度仅为 2/5（复现难度 4/5），且时间友好度仅 3/5，局限性在于需要较强的代码理解能力和环境配置，评估时间较长。建议作为高年级本科生或研究生的高级课程项目，任务目标清晰且贴近实际开发场景，但需提前预留充足的实验时间，并为学生提供必要的环境配置指导。
+> GAIA 适合作为课程实验选择，Task-Fit Score 达 3.6，排名第 3。教学价值 4/5，覆盖问答、推理和事实核查等多种能力，任务场景贴近真实需求，学生能全面理解通用 AI 助手评估流程。复现友好度 4/5，官方提供 HuggingFace 数据集且开源，复现成本可控。虽然代码实现不完整且部分评估需人工介入，但整体难度适中，适合课程作业周期。
 
 ---
 
-### 6.4 排名 4-7 的 Benchmark 概览
+### 6.4 排名 4-7 的基准概览
 
-| 排名 | Benchmark | Task-Fit Score | 简要评价 |
-|:---:|-----------|:--------------:|----------|
-| 4 | **AgentBench** | 3.5 | 多环境综合评估平台，科研价值高（5/5），但环境依赖多、评估时间长，建议作为进阶学习任务 |
-| 5 | **GAIA** | 3.2 | 通用 AI 助手评估，教学价值较高（4/5），但资源完整度有限（2/5），适合探索性课程项目 |
-| 6 | **WebArena** | 2.9 | 真实 Web 环境基准，科研价值突出（5/5），但复现难度极高（5/5），不适合课程实验 |
-| 7 | **OSWorld** | 2.5 | 操作系统级评估基准，复现难度最高（5/5），适合高级研究而非课程教学 |
+| 排名 | Benchmark | Task-Fit Score | 特点与局限 |
+|:---:|---|---|---|
+| 4 | SWE-bench | 3.45 | 代码生成与 bug 修复方向优秀，但时间成本高（2/5），适合高年级学生 |
+| 5 | AgentBench | 3.40 | 综合能力强但需要 GPU 资源，不适合资源受限的课程环境 |
+| 6 | WebArena | 3.10 | 环境配置复杂，适合研究生高级项目而非本科课程 |
+| 7 | OSWorld | 2.10 | 需要完整操作系统环境，资源消耗极大，不推荐作为课程实验资源 |
 
 ## 7. 推荐使用方案
 
-基于课程实验模式下的 Task-Fit Score 排名，本报告针对不同教学场景提出以下推荐方案：
+基于 **课程实验** 模式的需求，本报告提出以下分级推荐方案：
 
-### 7.1 入门级课程（本科低年级 / 选修课）
+### 7.1 首选推荐（可直接使用）
 
-**首选：Mind2Web（排名第 1）**
+| Benchmark | 适用场景 | 使用建议 |
+|---|---|---|
+| **Mind2Web** | Web 代理入门、课堂演示、基础课程作业 | 推荐指数：⭐⭐⭐⭐⭐<br>优先用于 Web 交互相关的课程实验，环境搭建简单，学生可快速产出成果 |
+| **GAIA** | 通用 AI 能力评估、短期课程作业 | 推荐指数：⭐⭐⭐⭐⭐<br>时间成本最低，适合 2-4 周的短期实验项目 |
 
-- **推荐理由**：复现难度低（3/5）、时间成本可控（4/5）、资源完整度高（4/5），学生可以快速上手
-- **建议学时**：4-6 周
-- **实验内容**：
-  1. 了解 Web 代理的基本原理
-  2. 使用 Mind2Web 数据集进行网页交互实验
-  3. 实现简单的动作预测模型
-  4. 提交实验报告，对比不同策略的效果
+### 7.2 备选推荐（需提前准备）
 
-### 7.2 进阶课程（本科高年级 / 研究生）
+| Benchmark | 适用场景 | 使用建议 |
+|---|---|---|
+| **ToolBench** | 工具学习方向、中高级课程项目 | 推荐指数：⭐⭐⭐⭐<br>建议教师提前预设简化工具集（建议选取 5-10 个核心工具），并控制 API 调用次数 |
+| **SWE-bench** | 高年级软件工程相关课程、研究导向项目 | 推荐指数：⭐⭐⭐<br>适合作为课程项目或毕业设计方向，不建议作为大规模课程作业 |
 
-**首选组合：Mind2Web + ToolBench**
+### 7.3 不推荐作为课程实验资源
 
-- **推荐理由**：两者 Task-Fit Score 均为 3.8，互补性强，覆盖 Web 代理和工具调用两大核心能力
-- **建议学时**：8-12 周
-- **实验内容**：
-  1. Web 代理基础实验（Mind2Web）
-  2. 工具调用与多步规划实验（ToolBench）
-  3. 扩展：对比分析两种任务的能力差异
-  4. 提交综合性实验报告
+| Benchmark | 原因 |
+|---|---|
+| **AgentBench** | 需要 GPU 资源，数据集不可直接下载，完整评估成本高 |
+| **WebArena** | 环境配置复杂，运行时间较长，资源受限场景下难以完成 |
+| **OSWorld** | 需要完整操作系统环境，资源消耗极大，实验周期不可控 |
 
-**备选进阶项目：SWE-bench**
+### 7.4 课程实施方案建议
 
-- **适用条件**：学生具备较强的编程基础和代码理解能力
-- **注意事项**：需提前预留 4 周以上的评估时间，提供详细的环境配置文档
+对于 **Web 代理方向** 的课程实验，建议采用以下方案：
 
-### 7.3 探索性课程项目
-
-**推荐：GAIA（排名第 5）**
-
-- **适用条件**：对 AI Agent 综合能力有深入探索兴趣的学生
-- **建议形式**：课程论文或研究性项目
-- **注意事项**：资源完整度有限，学生需要具备较强的自主学习能力
-
-### 7.4 课程设计建议
-
-| 环节 | 建议时长 | 建议内容 |
-|------|:--------:|----------|
-| 理论学习 | 2 周 | AI Agent 基本概念、评估方法论 |
-| 基准熟悉 | 1 周 | 选定基准的论文阅读、代码分析 |
-| 实验实现 | 3-4 周 | 核心代码实现、参数调优 |
-| 结果分析 | 1 周 | 评测结果分析、报告撰写 |
-| 展示与讨论 | 1 周 | 课堂展示、同行评审 |
+1. **Week 1-2**：以 Mind2Web 为核心，让学生熟悉 Web 代理的基本架构和评测流程，完成基线实验
+2. **Week 3-4**：引入 ToolBench 的简化版本（预设 5 个核心工具），让学生动手实现简单的工具调用 Agent
+3. **Week 5-6**：使用 GAIA 进行综合能力评估，让学生对比不同 Agent 在问答、推理任务上的表现差异
 
 ## 8. 局限性
 
-本报告存在以下局限性，使用时请注意参考：
+本报告存在以下局限性，需读者在使用时予以考虑：
 
-1. **数据时效性**：本次调研数据基于当前可获取的信息，Benchmark 领域发展迅速，部分基准可能在调研后进行了更新或迭代。建议在课程实施前查阅最新的官方资料。
+### 8.1 数据时效性
 
-2. **评分主观性**：Task-Fit Score 及各维度评分（如教学价值、科研价值）基于专家判断，不同使用者可能对"适合课程实验"有不同的理解和标准。
+本报告基于当前可获取的 Benchmark 信息编制，AI Agent 领域发展迅速，新的评测基准和更新版本可能持续涌现。报告中的评分和推荐可能随时间推移而发生变化，建议读者结合最新学术动态进行综合判断。
 
-3. **环境依赖差异**：报告中的复现难度评估基于一般性硬件条件，实际操作中可能因学生个人配置差异而产生不同结果。
+### 8.2 评分主观性
 
-4. **课程适配度**：报告推荐基于通用课程场景，实际使用时需结合具体课程的学时安排、学生基础、教学目标等因素进行调整。
+Benchmark 的各项评分（包括教学价值、科研价值、复现难度等）基于综合考量确定，存在一定的主观性。不同教育背景、不同实验条件下的实际体验可能与报告评分存在偏差。建议教师和学生根据自身实际情况调整选择策略。
 
-5. **资源链接有效性**：报告中引用的 GitHub 仓库、HuggingFace 数据集等链接可能因项目维护情况而发生变化，请以实际访问结果为准。
+### 8.3 资源依赖差异
 
-6. **语言局限性**：本次调研的基准主要针对英文环境，对于需要中文或跨语言评估的场景，可能需要额外的适配工作。
+报告中涉及的资源需求（如 GPU 资源、API 调用成本等）可能因具体实验环境、课程预算等因素而存在显著差异。OSWorld 等需要高计算资源的基准在本报告中评分较低，但在具备相应条件的科研环境中可能具有更高的实用价值。
+
+### 8.4 评测场景覆盖有限
+
+本报告重点关注课程实验场景下的 Benchmark 适用性，对于其他使用模式（如科研项目、企业评估等）的参考价值可能有限。不同模式下的最优选择可能存在较大差异。
 
 ## 9. 参考资料
 
-### Mind2Web
-
-- GitHub: https://github.com/OSU-NLP-Group/Mind2Web
-- HuggingFace: https://huggingface.co/datasets/MTG123/Mind2Web
-
-### ToolBench
-
-- GitHub: https://github.com/OpenBMB/ToolBench
-- HuggingFace: https://huggingface.co/datasets/OpenBMB/ToolBench
-
-### SWE-bench
-
-- 论文: https://arxiv.org/abs/2310.12948
-- GitHub: https://github.com/princeton-nlp/SWE-bench
-- HuggingFace: https://huggingface.co/datasets/princeton-nlp/SWE-bench
-
-### AgentBench
-
-- 论文: https://arxiv.org/abs/2308.03688
-- GitHub: https://github.com/THUDM/AgentBench
-
-### GAIA
-
-- 博客参考: https://galileo.ai/blog/agent-evaluation-framework-metrics-rubrics-benchmarks
-
-### WebArena
-
-- 论文: https://arxiv.org/abs/2307.13854
-- GitHub: https://github.com/web-arena-x/webarena
-- Leaderboard: https://webarena.dev/
-
-### OSWorld
-
-- GitHub: https://github.com/OSWorld-benchmark/OSWorld
+- **Mind2Web**: [论文链接](https://arxiv.org/abs/2306.13327) | [代码链接](https://github.com/OSU-NLP-Group/Mind2Web) | [数据集链接](https://huggingface.co/datasets/OhioStateMind2Web/Mind2Web)
+- **ToolBench**: [论文链接](https://arxiv.org/abs/2305.16504) | [代码链接](https://github.com/OpenBMB/ToolBench) | [数据集链接](https://huggingface.co/datasets/OpenBMB/ToolBench)
+- **GAIA**: [论文链接](https://arxiv.org/abs/2311.12983) | [数据集链接](https://huggingface.co/datasets/gaia-benchmark/GAIA)
+- **SWE-bench**: [论文链接](https://arxiv.org/abs/2312.15064) | [代码链接](https://github.com/princeton-nlp/SWE-bench) | [数据集链接](https://huggingface.co/datasets/princeton-nlp/SWE-bench)
+- **AgentBench**: [论文链接](https://arxiv.org/abs/2308.03688) | [代码链接](https://github.com/THUDM/AgentBench)
+- **WebArena**: [论文链接](https://arxiv.org/abs/2307.13854) | [代码/数据集链接](https://github.com/web-arena-x/webarena)
+- **OSWorld**: [论文链接](https://arxiv.org/abs/2307.14758) | [代码链接](https://github.com/OSWorld-benchmark/OSWorld)
 
 ---
 
-*本报告由 BenchmarkRadar 系统自动生成，建议结合实际教学需求进行选用。*
+*本报告由 BenchmarkRadar 自动化生成，生成日期：2024 年。报告内容仅供参考，实际使用时请结合具体需求进行调整。*

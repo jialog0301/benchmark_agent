@@ -1,0 +1,254 @@
+[
+  {
+    "name": "Mind2Web",
+    "description": "Mind2Web是一个用于评估Web代理的基准数据集，包含真实的网页交互任务",
+    "task_type": "Web Agent Evaluation",
+    "evaluated_ability": [
+      "web interaction",
+      "instruction following",
+      "reasoning"
+    ],
+    "metrics": [
+      "action success rate",
+      "task completion rate"
+    ],
+    "paper_url": "https://arxiv.org/abs/2306.13327",
+    "code_url": "https://github.com/OSU-NLP-Group/Mind2Web",
+    "dataset_url": "https://huggingface.co/datasets/OhioStateMind2Web/Mind2Web",
+    "leaderboard_url": null,
+    "open_source": true,
+    "resource_completeness": 4,
+    "reproduction_difficulty": 2,
+    "teaching_value": 4,
+    "research_value": 4,
+    "topic_popularity": 3,
+    "time_cost_friendliness": 3,
+    "documentation_quality": 4,
+    "authority": 4,
+    "limitations": "数据集规模相对较小，评估场景有限",
+    "suitable_usage": "Web代理入门学习，课堂教学演示",
+    "evidence": [
+      "https://github.com/OSU-NLP-Group/Mind2Web"
+    ],
+    "mode": "课程实验",
+    "task_fit_score": 3.75,
+    "rank": 1,
+    "recommendation_reason": "Mind2Web 是一个专注于 Web 代理评测的数据集，在课程实验模式下 Task-Fit Score 达 3.75，排名第 1。该数据集的教学价值为 4/5、资源完整度为 4/5，且复现难度仅为 2/5（复现友好度高），非常适合学生进行 Web 交互代理的入门学习和课堂演示。虽然数据集规模相对较小、评估场景有限，但对于基础课程作业而言足够使用，开源代码和数据集也已开源，学生可以快速上手实践。"
+  },
+  {
+    "name": "ToolBench",
+    "description": "ToolBench是一个用于评估工具学习能力的基准测试，考察LLM使用外部工具解决问题的能力",
+    "task_type": "Tool Learning Evaluation",
+    "evaluated_ability": [
+      "tool use",
+      "function calling",
+      "reasoning"
+    ],
+    "metrics": [
+      "task success",
+      "tool selection accuracy"
+    ],
+    "paper_url": "https://arxiv.org/abs/2305.16504",
+    "code_url": "https://github.com/OpenBMB/ToolBench",
+    "dataset_url": "https://huggingface.co/datasets/OpenBMB/ToolBench",
+    "leaderboard_url": null,
+    "open_source": true,
+    "resource_completeness": 4,
+    "reproduction_difficulty": 3,
+    "teaching_value": 4,
+    "research_value": 4,
+    "topic_popularity": 4,
+    "time_cost_friendliness": 3,
+    "documentation_quality": 4,
+    "authority": 4,
+    "limitations": "工具API调用成本，工具集规模庞大",
+    "suitable_usage": "工具学习研究，智能助手开发",
+    "evidence": [
+      "https://github.com/OpenBMB/ToolBench"
+    ],
+    "mode": "课程实验",
+    "task_fit_score": 3.7,
+    "rank": 2,
+    "recommendation_reason": "ToolBench 任务拟合分数 3.7，排名第 2，是工具学习方向的高质量评测基准，适合作为课程实验选题。该基准教学价值 4/5、资源完整度 4/5，提供了完整的开源代码和数据集，学生可快速上手工具调用与函数推理任务。复现友好度中等（复现难度 3/5），主要挑战在于工具 API 调用成本和工具集规模，建议教师提前预设简化工具集以控制实验时间，整体而言是兼具前沿性和实操性的课程实验候选。"
+  },
+  {
+    "name": "GAIA",
+    "description": "GAIA是一个通用AI助手评估基准，测试AI系统处理多种类型问题的能力",
+    "task_type": "General AI Assistant Evaluation",
+    "evaluated_ability": [
+      "question answering",
+      "reasoning",
+      "fact verification"
+    ],
+    "metrics": [
+      "accuracy",
+      "completeness"
+    ],
+    "paper_url": "https://arxiv.org/abs/2311.12983",
+    "code_url": null,
+    "dataset_url": "https://huggingface.co/datasets/gaia-benchmark/GAIA",
+    "leaderboard_url": null,
+    "open_source": true,
+    "resource_completeness": 3,
+    "reproduction_difficulty": 2,
+    "teaching_value": 4,
+    "research_value": 4,
+    "topic_popularity": 3,
+    "time_cost_friendliness": 4,
+    "documentation_quality": 3,
+    "authority": 4,
+    "limitations": "代码实现不完整，评估标准可能需要人工评判",
+    "suitable_usage": "通用AI助手评测，课程作业评估",
+    "evidence": [
+      "https://huggingface.co/datasets/gaia-benchmark/GAIA"
+    ],
+    "mode": "课程实验",
+    "task_fit_score": 3.6,
+    "rank": 3,
+    "recommendation_reason": "GAIA 适合作为课程实验选择，task_fit_score 达 3.6，排名第3。教学价值 4/5，覆盖问答、推理和事实核查等多种能力，任务场景贴近真实需求，学生能全面理解通用AI助手评估流程。复现友好度 4/5，官方提供HuggingFace数据集且开源，复现成本可控。虽然代码实现不完整且部分评估需人工介入，但整体难度适中，适合课程作业周期。"
+  },
+  {
+    "name": "SWE-bench",
+    "description": "SWE-bench是一个评估AI代理解决真实GitHub问题的基准测试，从开源项目中提取问题",
+    "task_type": "Software Engineering Agent Evaluation",
+    "evaluated_ability": [
+      "code generation",
+      "bug fixing",
+      "software debugging"
+    ],
+    "metrics": [
+      "issue resolution rate",
+      "patch correctness"
+    ],
+    "paper_url": "https://arxiv.org/abs/2312.15064",
+    "code_url": "https://github.com/princeton-nlp/SWE-bench",
+    "dataset_url": "https://huggingface.co/datasets/princeton-nlp/SWE-bench",
+    "leaderboard_url": null,
+    "open_source": true,
+    "resource_completeness": 4,
+    "reproduction_difficulty": 3,
+    "teaching_value": 3,
+    "research_value": 5,
+    "topic_popularity": 5,
+    "time_cost_friendliness": 2,
+    "documentation_quality": 4,
+    "authority": 5,
+    "limitations": "评估需要调用代码执行环境，部分任务需要长时间运行",
+    "suitable_usage": "代码助手研究，自动化编程评估",
+    "evidence": [
+      "https://github.com/princeton-nlp/SWE-bench",
+      "https://huggingface.co/datasets/princeton-nlp/SWE-bench"
+    ],
+    "mode": "课程实验",
+    "task_fit_score": 3.45,
+    "rank": 4,
+    "recommendation_reason": "SWE-bench 作为评测AI代理解决真实GitHub问题的基准测试，教学价值3/5、时间友好度2/5，在课程实验场景下存在一定局限性。任务设置聚焦代码生成和bug修复，紧跟软件工程热点（热度5/5），资源完整度4/5且完全开源，学生可获取丰富材料。但评估需要调用代码执行环境，且部分任务运行时间较长，复现难度3/5意味着时间成本较高。建议仅作为高年级实验或课程项目可选方向，不建议作为大规模课程作业的首选。task_fit_score为3.45，排名第4。"
+  },
+  {
+    "name": "AgentBench",
+    "description": "AgentBench是一个综合性的LLM作为Agent的评估基准，评估LLM在真实环境中的多维度能力",
+    "task_type": "LLM-as-Agent Evaluation",
+    "evaluated_ability": [
+      "reasoning",
+      "tool interaction"
+    ],
+    "metrics": [
+      "task success"
+    ],
+    "paper_url": "https://arxiv.org/abs/2308.03688",
+    "code_url": "https://github.com/THUDM/AgentBench",
+    "dataset_url": null,
+    "leaderboard_url": null,
+    "open_source": true,
+    "resource_completeness": 4,
+    "reproduction_difficulty": 4,
+    "teaching_value": 4,
+    "research_value": 5,
+    "topic_popularity": 4,
+    "time_cost_friendliness": 2,
+    "documentation_quality": 4,
+    "authority": 5,
+    "limitations": "需要GPU资源，数据集不可直接下载，完整评估成本高",
+    "suitable_usage": "科研机构进行LLM Agent能力评估，企业模型选型",
+    "evidence": [
+      "https://arxiv.org/abs/2308.03688",
+      "https://github.com/THUDM/AgentBench"
+    ],
+    "mode": "课程实验",
+    "task_fit_score": 3.4,
+    "rank": 5,
+    "recommendation_reason": "AgentBench 在教学价值（4/5）和资源完整度（4/5）上表现尚可，话题热度（4/5）也较高，但复现友好度仅为 2/5，且时间友好度仅 2/5，需 GPU 资源、数据集不可直接下载、完整评估成本高，这对课程实验的资源和时间预算构成较大挑战，适合程度一般（task_fit_score 3.4，rank 5），建议作为课后调研材料而非首选实验任务。"
+  },
+  {
+    "name": "WebArena",
+    "description": "WebArena是一个用于评估自主Web代理的基准测试环境，包含真实网站模拟",
+    "task_type": "Web Agent Evaluation",
+    "evaluated_ability": [
+      "web navigation",
+      "information retrieval",
+      "task completion"
+    ],
+    "metrics": [
+      "task success rate",
+      "action accuracy"
+    ],
+    "paper_url": "https://arxiv.org/abs/2307.13854",
+    "code_url": "https://github.com/web-arena-x/webarena",
+    "dataset_url": "https://github.com/web-arena-x/webarena",
+    "leaderboard_url": null,
+    "open_source": true,
+    "resource_completeness": 4,
+    "reproduction_difficulty": 4,
+    "teaching_value": 3,
+    "research_value": 4,
+    "topic_popularity": 4,
+    "time_cost_friendliness": 2,
+    "documentation_quality": 4,
+    "authority": 4,
+    "limitations": "环境配置复杂，需要模拟真实网站，运行时间较长",
+    "suitable_usage": "Web代理研究评估，自动化网页操作任务研究",
+    "evidence": [
+      "https://github.com/web-arena-x/webarena"
+    ],
+    "mode": "课程实验",
+    "task_fit_score": 3.1,
+    "rank": 6,
+    "recommendation_reason": "WebArena 在课程实验模式下的 Task-Fit Score 为 3.1，排名第 6，整体适配度偏低，不太适合作为本科课程作业或短期实验项目。该基准的教学价值为 3/5、资源完整度为 4/5，但复现友好度仅为 2/5，时间友好度也仅有 2/5。其主要局限性在于环境配置复杂、需要模拟真实网站，且运行时间较长，对于课程周期紧张的学生而言时间成本过高。建议仅在研究生高级项目或长期课程研究中考虑使用。"
+  },
+  {
+    "name": "OSWorld",
+    "description": "OSWorld是一个用于评估操作系统级代理的基准测试，在真实操作系统环境中进行任务评估",
+    "task_type": "OS Agent Evaluation",
+    "evaluated_ability": [
+      "system operation",
+      "file manipulation",
+      "application control"
+    ],
+    "metrics": [
+      "task completion rate",
+      "step accuracy"
+    ],
+    "paper_url": "https://arxiv.org/abs/2307.14758",
+    "code_url": "https://github.com/OSWorld-benchmark/OSWorld",
+    "dataset_url": null,
+    "leaderboard_url": null,
+    "open_source": true,
+    "resource_completeness": 3,
+    "reproduction_difficulty": 5,
+    "teaching_value": 2,
+    "research_value": 4,
+    "topic_popularity": 3,
+    "time_cost_friendliness": 1,
+    "documentation_quality": 3,
+    "authority": 4,
+    "limitations": "需要完整的操作系统环境，资源消耗极大，实验周期长",
+    "suitable_usage": "操作系统自动化研究，高端研究机构",
+    "evidence": [
+      "https://github.com/OSWorld-benchmark/OSWorld"
+    ],
+    "mode": "课程实验",
+    "task_fit_score": 2.1,
+    "rank": 7,
+    "recommendation_reason": "OSWorld 虽然是评测操作系统级智能体的重要基准，但 task_fit_score 仅为 2.1（排名第 7），教学价值仅 2/5，不适合作为课程实验资源。资源完整度 3/5，但复现难度高达 5/5，需要完整的操作系统环境支持，资源消耗极大，实验周期长，学生难以在有限时间内完成实验。建议选择更轻量级、时间成本更友好的基准。"
+  }
+]

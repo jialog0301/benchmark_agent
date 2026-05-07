@@ -37,7 +37,6 @@ env/
 .env.local
 
 # Data & outputs
-*.json
 !requirements.txt
 .claude/
 CLAUDE.md
