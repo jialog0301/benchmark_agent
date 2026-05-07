@@ -37,38 +37,75 @@ if st.button("🚀 开始分析", type="primary"):
     if not topic:
         st.error("请输入调研主题")
     else:
-        with st.spinner("分析中..."):
-            result = run_benchmark_radar(topic, mode, use_cache)
+        st.session_state.result = None
+        with st.status("Agent 执行过程...", expanded=True) as status:
+            try:
+                st.write("⏳ 启动 Planner Agent 生成搜索计划...")
+                st.write("⏳ 唤醒 Search Agent 检索资料 (接口/缓存)...")
+                st.write("⏳ 唤醒 Extractor Agent 抽取 Benchmark 信息...")
+                st.write("⏳ 唤醒 Scorer Agent 计算 Task-Fit Score...")
+                st.write("⏳ 唤醒 Judge Agent 生成推荐理由...")
+                st.write("⏳ 唤醒 Report Agent 生成 Markdown 报告...")
+                result = run_benchmark_radar(topic, mode, use_cache)
+                st.session_state.result = result
+                status.update(label="✅ 数据分析完成！", state="complete", expanded=False)
+            except Exception as e:
+                status.update(label="❌ 数据分析失败", state="error", expanded=False)
+                st.error(f"执行过程中发生错误: {e}")
 
-        # Display results
-        st.success("分析完成！")
+if st.session_state.get("result"):
+    result = st.session_state.result
 
-        # Plan
-        if result.get("plan"):
-            st.subheader("📋 搜索规划")
-            st.json(result["plan"])
+    # Plan
+    if result.get("plan"):
+        st.subheader("📋 搜索规划")
+        st.json(result["plan"])
 
-        # Benchmarks table
-        if result.get("ranked_benchmarks"):
-            st.subheader("📊 Benchmark 对比表")
-            import pandas as pd
-            df = pd.DataFrame(result["ranked_benchmarks"])
-            display_cols = ["rank", "name", "task_fit_score", "teaching_value",
-                           "research_value", "resource_completeness", "reproduction_difficulty"]
-            display_cols = [c for c in display_cols if c in df.columns]
-            st.dataframe(df[display_cols], use_container_width=True)
+    # Benchmarks table
+    if result.get("ranked_benchmarks"):
+        st.subheader("📊 Benchmark 对比表")
+        import pandas as pd
+        df = pd.DataFrame(result["ranked_benchmarks"])
+        display_cols = ["rank", "name", "task_fit_score", "teaching_value",
+                       "research_value", "resource_completeness", "reproduction_difficulty"]
+        display_cols = [c for c in display_cols if c in df.columns]
+        
+        # 使用 column_config 优化可视化
+        st.dataframe(
+            df[display_cols],
+            use_container_width=True,
+            column_config={
+                "rank": st.column_config.NumberColumn("排名"),
+                "name": st.column_config.TextColumn("Benchmark 名称", width="medium"),
+                "task_fit_score": st.column_config.NumberColumn("Task-Fit Score", format="%.2f"),
+                "teaching_value": st.column_config.ProgressColumn("教学价值", min_value=0, max_value=5, format="%d"),
+                "research_value": st.column_config.ProgressColumn("科研价值", min_value=0, max_value=5, format="%d"),
+                "resource_completeness": st.column_config.ProgressColumn("资源完整度", min_value=0, max_value=5, format="%d"),
+                "reproduction_difficulty": st.column_config.ProgressColumn("复现难度", min_value=0, max_value=5, format="%d"),
+            }
+        )
 
-            # Top recommendation
-            st.subheader("🏆 Top 推荐")
-            top = result["ranked_benchmarks"][0]
-            st.markdown(f"**{top['name']}** (Score: {top['task_fit_score']:.2f})")
-            if top.get("recommendation_reason"):
-                st.markdown(top["recommendation_reason"])
+        # Top recommendation
+        st.subheader("🏆 Top 推荐")
+        top = result["ranked_benchmarks"][0]
+        st.markdown(f"**{top['name']}** (Score: {top['task_fit_score']:.2f})")
+        if top.get("recommendation_reason"):
+            st.markdown(top["recommendation_reason"])
 
-        # Final report
-        if result.get("final_report"):
+    # Final report
+    if result.get("final_report"):
+        rep_col1, rep_col2 = st.columns([0.8, 0.2])
+        with rep_col1:
             st.subheader("📝 最终报告")
-            st.markdown(result["final_report"])
+        with rep_col2:
+            st.download_button(
+                label="📥 下载报告",
+                data=result["final_report"],
+                file_name=f"{topic.replace(' ', '_')}_{mode}_report.md",
+                mime="text/markdown"
+            )
+        
+        st.markdown(result["final_report"])
 
 # Sidebar - cached topics
 st.sidebar.title("📁 缓存数据")
