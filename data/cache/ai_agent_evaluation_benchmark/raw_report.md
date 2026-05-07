@@ -4,44 +4,160 @@
 - topic: AI Agent Evaluation Benchmark
 - mode: 课程实验
 - topic_type: agent
-- generated_at_utc: 2026-05-02T09:06:28.313068+00:00
-- total_search_results: 10
+- generated_at_utc: 2026-05-07T07:34:29.443199+00:00
+- total_search_results: 44
 - note: 本报告用于后续 extractor 抽取，不包含最终推荐排名。
 
 ## Search Goals
-- 梳理 AI Agent Evaluation Benchmark 相关 benchmark 的代表性候选
-- 收集每个 benchmark 的论文、代码、数据集和 leaderboard 入口
-- 总结各 benchmark 的评测任务、能力维度和关键指标
-- 比较资源完整度、文档质量与复现门槛
-- 提炼适用于后续结构化抽取的证据链接集合
-- 评估各候选 benchmark 的教学价值与课堂可讲解性
-- 比较资源完整度（文档、代码、数据、示例）
-- 判断复现友好度和环境部署复杂度
+- 了解当前主流的AI Agent评估基准及其评价指标
+- 获取用于课程实验的AI Agent评估基准的完整资源（代码、数据集、文档）
+- 评估不同基准的易用性、再现性和教学价值
+- 比较基准在时间成本和资源需求方面的差异
+- 寻找适合学生实验的快速上手和可复现的基准项目
 
 ## Search Queries
-- AI Agent Evaluation Benchmark benchmark paper GitHub leaderboard
-- AI Agent Evaluation Benchmark evaluation benchmark dataset metrics
-- AI Agent Evaluation Benchmark benchmark survey comparison
-- AI Agent Evaluation Benchmark GitHub open source implementation
-- AI Agent Evaluation Benchmark arxiv benchmark 2024 2025
-- AI Agent Evaluation Benchmark teaching friendly benchmark tutorial reproducibility
-- AI Agent Evaluation Benchmark benchmark documentation setup guide student project
-- AI Agent Evaluation Benchmark benchmark quick demo time cost reproducible experiment
+- AI agent evaluation benchmark reproducibility course experiment GitHub dataset metrics
+- AI agent benchmark teaching value assignment lab resources open source
+- comparison of AI agent evaluation benchmarks leaderboard metrics reproducibility
+- AI agent evaluation benchmark quickstart guide for course lab assignment
+- AI agent benchmark dataset availability and documentation for teaching
+- AI Agent Evaluation Benchmark AgentBench WebArena SWE-bench GAIA OSWorld ToolBench Mind2Web AgentBoard
+- AI Agent Evaluation Benchmark agent evaluation benchmark leaderboard
+- AI Agent Evaluation Benchmark web agent tool use benchmark
 
 ## Search Evidence Snapshot
-1. [Sola-Visibility-ISPM: Benchmarking Agentic AI for Identity Security Posture Management Visibility](https://arxiv.org/abs/2601.07880v1) | source: arxiv | query: `AI Agent Evaluation Benchmark benchmark paper GitHub leaderboard`
-2. [A Human-Grounded Evaluation Benchmark for Local Explanations of Machine Learning](https://arxiv.org/abs/1801.05075v2) | source: arxiv | query: `AI Agent Evaluation Benchmark benchmark paper GitHub leaderboard`
-3. [SECQUE: A Benchmark for Evaluating Real-World Financial Analysis Capabilities](https://arxiv.org/abs/2504.04596v1) | source: arxiv | query: `AI Agent Evaluation Benchmark benchmark paper GitHub leaderboard`
-4. [The ML.ENERGY Benchmark: Toward Automated Inference Energy Measurement and Optimization](https://arxiv.org/abs/2505.06371v2) | source: arxiv | query: `AI Agent Evaluation Benchmark benchmark paper GitHub leaderboard`
-5. [BEDD: The MineRL BASALT Evaluation and Demonstrations Dataset for Training and Benchmarking Agents that Solve Fuzzy Tasks](https://arxiv.org/abs/2312.02405v1) | source: arxiv | query: `AI Agent Evaluation Benchmark evaluation benchmark dataset metrics`
-6. [AI Agents: Evolution, Architecture, and Real-World Applications](https://arxiv.org/abs/2503.12687v1) | source: arxiv | query: `AI Agent Evaluation Benchmark benchmark survey comparison`
-7. [Docling: An Efficient Open-Source Toolkit for AI-driven Document Conversion](https://arxiv.org/abs/2501.17887v1) | source: arxiv | query: `AI Agent Evaluation Benchmark GitHub open source implementation`
-8. [AI prediction leads people to forgo guaranteed rewards](https://arxiv.org/abs/2603.28944v1) | source: arxiv | query: `AI Agent Evaluation Benchmark GitHub open source implementation`
-9. [CORE-Bench: Fostering the Credibility of Published Research Through a Computational Reproducibility Agent Benchmark](https://arxiv.org/abs/2409.11363v1) | source: arxiv | query: `AI Agent Evaluation Benchmark teaching friendly benchmark tutorial reproducibility`
-10. [Agent-as-a-Judge: Evaluate Agents with Agents](https://arxiv.org/abs/2410.10934v2) | source: arxiv | query: `AI Agent Evaluation Benchmark benchmark documentation setup guide student project`
+1. [ResearchClawBench: Evaluating AI Agents for Automated ... - GitHub](https://github.com/InternScience/ResearchClawBench) | source: tavily | query: `AI agent evaluation benchmark reproducibility course experiment GitHub dataset metrics`
+2. [philschmid/ai-agent-benchmark-compendium ... - GitHub](https://github.com/philschmid/ai-agent-benchmark-compendium) | source: tavily | query: `AI agent evaluation benchmark reproducibility course experiment GitHub dataset metrics`
+3. [15 Datasets for Training and Evaluating AI Agents | by ODSC](https://odsc.medium.com/15-datasets-for-training-and-evaluating-ai-agents-c171dde4e0ce) | source: tavily | query: `AI agent evaluation benchmark reproducibility course experiment GitHub dataset metrics`
+4. [Vvkmnn/awesome-ai-eval - GitHub](https://github.com/Vvkmnn/awesome-ai-eval) | source: tavily | query: `AI agent evaluation benchmark reproducibility course experiment GitHub dataset metrics`
+5. [GitHub - danielrosehill/Awesome-AI-Evaluations-Tools](https://github.com/danielrosehill/Awesome-AI-Evaluations-Tools) | source: tavily | query: `AI agent evaluation benchmark reproducibility course experiment GitHub dataset metrics`
+6. [Benchmarking AI agents against 800+ open source tests - AI Tinkerers](https://nyc.aitinkerers.org/talks/rsvp_oHcOn4pn-yw) | source: tavily | query: `AI agent benchmark teaching value assignment lab resources open source`
+7. [Awesome AI Agents: Tools, Resources, and Projects - GitHub](https://github.com/jim-schwoebel/awesome_ai_agents) | source: tavily | query: `AI agent benchmark teaching value assignment lab resources open source`
+8. [Evaluating AI Agents in 2025 - by Nilesh Barla](https://labs.adaline.ai/p/evaluating-ai-agents-in-2025) | source: tavily | query: `AI agent benchmark teaching value assignment lab resources open source`
+9. [An Open-Source AI Agent for Doing Tasks on the Web | Stanford HAI](https://hai.stanford.edu/news/an-open-source-ai-agent-for-doing-tasks-on-the-web) | source: tavily | query: `AI agent benchmark teaching value assignment lab resources open source`
+10. [AstaBench: Rigorous benchmarking of AI agents with a holistic scientific research suite  | Ai2](https://allenai.org/blog/astabench) | source: tavily | query: `AI agent benchmark teaching value assignment lab resources open source`
+11. [Efficient Benchmarking of AI Agents](https://arxiv.org/html/2603.23749v1) | source: tavily | query: `comparison of AI agent evaluation benchmarks leaderboard metrics reproducibility`
+12. [𝜏-Bench leaderboard: compare, explore, and understand agent performance | Sierra](https://sierra.ai/blog/t-bench-leaderboard) | source: tavily | query: `comparison of AI agent evaluation benchmarks leaderboard metrics reproducibility`
+13. [Agent Evaluation Framework 2026: Metrics, Rubrics & Benchmarks](https://galileo.ai/blog/agent-evaluation-framework-metrics-rubrics-benchmarks) | source: tavily | query: `comparison of AI agent evaluation benchmarks leaderboard metrics reproducibility`
+14. [Best AI Agent Evaluation Benchmarks: 2025 Complete Guide](https://o-mega.ai/articles/the-best-ai-agent-evals-and-benchmarks-full-2025-guide) | source: tavily | query: `comparison of AI agent evaluation benchmarks leaderboard metrics reproducibility`
+15. [AI Agent Benchmarks: What They Measure & Where They Fall Short](https://redis.io/blog/ai-agent-benchmarks/) | source: tavily | query: `comparison of AI agent evaluation benchmarks leaderboard metrics reproducibility`
+16. [The Complete Guide to AI Agent Evaluation: Key Steps, Metrics & Best…](https://delight.ai/blog/ai-agent/ai-agent-evaluation-guide) | source: tavily | query: `AI agent evaluation benchmark quickstart guide for course lab assignment`
+17. [Evaluating AI Agents in 2025: A Practical Guide - Turing College](https://www.turingcollege.com/blog/evaluating-ai-agents-practical-guide) | source: tavily | query: `AI agent evaluation benchmark quickstart guide for course lab assignment`
+18. [Agent Evaluation: How to Test and Measure Agentic AI Performance - MachineLearningMastery.com](https://machinelearningmastery.com/agent-evaluation-how-to-test-and-measure-agentic-ai-performance/) | source: tavily | query: `AI agent evaluation benchmark quickstart guide for course lab assignment`
+19. [AI Agent Evaluation: How to Build Custom Benchmarks That Actually Test Intelligence | MindStudio](https://www.mindstudio.ai/blog/ai-agent-custom-benchmarks-evaluation/) | source: tavily | query: `AI agent evaluation benchmark quickstart guide for course lab assignment`
+20. [Agentic Evaluations: Benchmark AI Agent Quality, Performance & Safety | Solo.io](https://www.solo.io/blog/agentic-quality-benchmarking-with-agent-evals) | source: tavily | query: `AI agent evaluation benchmark quickstart guide for course lab assignment`
 
 ## Benchmark Candidates
-### Benchmark 1: AgentBench
+### Benchmark 1: WebArena
+name: WebArena
+description: WebArena benchmark candidate.
+task_type: Web Agent Evaluation
+evaluated_ability:
+  - web navigation
+  - planning
+  - tool use
+metrics:
+  - task success rate
+paper_url: https://arxiv.org/abs/2307.13854
+code_url: https://github.com/web-arena-x/webarena
+dataset_url: https://odsc.medium.com/15-datasets-for-training-and-evaluating-ai-agents-c171dde4e0ce
+leaderboard_url: https://webarena.dev/
+project_url: https://webarena.dev/
+open_source: true
+resource_evidence:
+  paper_available: true
+  code_available: true
+  dataset_available: true
+  leaderboard_available: true
+  official_site_available: true
+  install_instructions_available: true
+  quick_walkthrough_available: true
+  docker_or_environment_files_available: true
+  evidence_notes: Resource completeness score=4; evidence links include paper/code/dataset/leaderboard/readme where available.
+reproduction_evidence:
+  setup_requirements:
+    - Python environment
+    - Browser automation dependencies
+    - Website/service configuration
+  requires_gpu: true
+  requires_api_key: depends_on_agent_model
+  estimated_setup_cost: very_high
+  reproduction_notes: Reproduction difficulty=5 (higher is harder). Complexity inferred from task type and setup dependencies.
+teaching_evidence:
+  task_clarity: medium
+  example_tasks_available: true
+  classroom_demo_value: medium
+  student_friendliness: low
+  teaching_notes: Teaching value=3; time friendliness=2. README/examples availability used as proxy evidence.
+research_evidence:
+  representative_benchmark: true
+  realistic_environment: true
+  leaderboard_available: true
+  baseline_results_available: true
+  research_notes: Research value=5; authority=5. Presence of paper/leaderboard/code improves research comparability.
+popularity_evidence:
+  github_repository_available: true
+  github_api_status: ok
+  github_api_error_message: none
+  github_stars: 1453
+  github_forks: 236
+  leaderboard_or_project_available: true
+  recent_repository_activity: true
+  last_push_utc: 2025-11-26T21:16:00Z
+  related_benchmarks_or_extensions:
+    - VisualWebArena
+    - BrowserGym
+  popularity_notes: Topic popularity score=5; stars=1453, forks=236, recent_activity=true.
+time_cost_evidence:
+  quick_walkthrough_available: true
+  small_demo_possible: false
+  full_evaluation_cost: very_high
+  estimated_demo_time: multiple_days
+  estimated_full_reproduction_time: multiple_days
+  time_cost_notes: Time friendliness=2; reproduction difficulty=5.
+documentation_evidence:
+  readme_quality: high
+  installation_steps_available: true
+  examples_available: true
+  evaluation_instructions_available: likely
+  documentation_notes: Documentation quality score=4; README and project docs links are used as evidence.
+authority_evidence:
+  paper_available: true
+  official_project_site: true
+  official_github_repository: true
+  leaderboard_available: true
+  authority_notes: Authority score=5; based on availability of paper/repo/project/leaderboard.
+resource_completeness: 4
+reproduction_difficulty: 5
+teaching_value: 3
+research_value: 5
+topic_popularity: 5
+time_cost_friendliness: 2
+documentation_quality: 4
+authority: 5
+suggested_scores_for_extractor:
+  resource_completeness: 4
+  reproduction_difficulty: 5
+  teaching_value: 3
+  research_value: 5
+  topic_popularity: 5
+  time_cost_friendliness: 2
+  documentation_quality: 4
+  authority: 5
+limitations: null
+suitable_usage: null
+evidence:
+  - https://arxiv.org/abs/2307.13854
+  - https://github.com/web-arena-x/webarena
+  - https://webarena.dev/
+  - https://github.com/web-arena-x/webarena#readme
+  - https://odsc.medium.com/15-datasets-for-training-and-evaluating-ai-agents-c171dde4e0ce
+  - https://nyc.aitinkerers.org/talks/rsvp_oHcOn4pn-yw
+  - https://byteiota.com/berkeley-breaks-ai-agent-benchmarks-100-scores-zero-solutions/
+  - https://leaderboard.steel.dev/results
+  - https://o-mega.ai/articles/top-10-agentic-evals-benchmarking-actionable-ai-2025
+
+### Benchmark 2: AgentBench
 name: AgentBench
 description: AgentBench benchmark candidate.
 task_type: LLM-as-Agent Evaluation
@@ -87,15 +203,15 @@ research_evidence:
   research_notes: Research value=5; authority=5. Presence of paper/leaderboard/code improves research comparability.
 popularity_evidence:
   github_repository_available: true
-  github_api_status: rate_limited_or_forbidden
-  github_api_error_message: API rate limit exceeded for 66.90.98.146. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)
-  github_stars: unknown
-  github_forks: unknown
+  github_api_status: ok
+  github_api_error_message: none
+  github_stars: 3394
+  github_forks: 250
   leaderboard_or_project_available: true
-  recent_repository_activity: unknown
-  last_push_utc: unknown
+  recent_repository_activity: true
+  last_push_utc: 2026-02-08T17:01:05Z
   related_benchmarks_or_extensions: []
-  popularity_notes: Topic popularity score=4; stars=unknown, forks=unknown, recent_activity=unknown.
+  popularity_notes: Topic popularity score=4; stars=3394, forks=250, recent_activity=true.
 time_cost_evidence:
   quick_walkthrough_available: true
   small_demo_possible: false
@@ -138,110 +254,12 @@ evidence:
   - https://arxiv.org/abs/2308.03688
   - https://github.com/THUDM/AgentBench
   - https://github.com/THUDM/AgentBench#readme
-
-### Benchmark 2: WebArena
-name: WebArena
-description: WebArena benchmark candidate.
-task_type: Web Agent Evaluation
-evaluated_ability:
-  - web navigation
-  - planning
-  - tool use
-metrics:
-  - task success rate
-paper_url: https://arxiv.org/abs/2307.13854
-code_url: https://github.com/web-arena-x/webarena
-dataset_url: null
-leaderboard_url: https://webarena.dev/
-project_url: https://webarena.dev/
-open_source: true
-resource_evidence:
-  paper_available: true
-  code_available: true
-  dataset_available: false
-  leaderboard_available: true
-  official_site_available: true
-  install_instructions_available: true
-  quick_walkthrough_available: true
-  docker_or_environment_files_available: true
-  evidence_notes: Resource completeness score=4; evidence links include paper/code/dataset/leaderboard/readme where available.
-reproduction_evidence:
-  setup_requirements:
-    - Python environment
-    - Browser automation dependencies
-    - Website/service configuration
-  requires_gpu: true
-  requires_api_key: depends_on_agent_model
-  estimated_setup_cost: very_high
-  reproduction_notes: Reproduction difficulty=5 (higher is harder). Complexity inferred from task type and setup dependencies.
-teaching_evidence:
-  task_clarity: medium
-  example_tasks_available: true
-  classroom_demo_value: medium
-  student_friendliness: low
-  teaching_notes: Teaching value=3; time friendliness=2. README/examples availability used as proxy evidence.
-research_evidence:
-  representative_benchmark: true
-  realistic_environment: true
-  leaderboard_available: true
-  baseline_results_available: true
-  research_notes: Research value=5; authority=5. Presence of paper/leaderboard/code improves research comparability.
-popularity_evidence:
-  github_repository_available: true
-  github_api_status: rate_limited_or_forbidden
-  github_api_error_message: API rate limit exceeded for 66.90.98.146. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)
-  github_stars: unknown
-  github_forks: unknown
-  leaderboard_or_project_available: true
-  recent_repository_activity: unknown
-  last_push_utc: unknown
-  related_benchmarks_or_extensions:
-    - VisualWebArena
-    - BrowserGym
-  popularity_notes: Topic popularity score=5; stars=unknown, forks=unknown, recent_activity=unknown.
-time_cost_evidence:
-  quick_walkthrough_available: true
-  small_demo_possible: false
-  full_evaluation_cost: very_high
-  estimated_demo_time: multiple_days
-  estimated_full_reproduction_time: multiple_days
-  time_cost_notes: Time friendliness=2; reproduction difficulty=5.
-documentation_evidence:
-  readme_quality: high
-  installation_steps_available: true
-  examples_available: true
-  evaluation_instructions_available: likely
-  documentation_notes: Documentation quality score=4; README and project docs links are used as evidence.
-authority_evidence:
-  paper_available: true
-  official_project_site: true
-  official_github_repository: true
-  leaderboard_available: true
-  authority_notes: Authority score=5; based on availability of paper/repo/project/leaderboard.
-resource_completeness: 4
-reproduction_difficulty: 5
-teaching_value: 3
-research_value: 5
-topic_popularity: 5
-time_cost_friendliness: 2
-documentation_quality: 4
-authority: 5
-suggested_scores_for_extractor:
-  resource_completeness: 4
-  reproduction_difficulty: 5
-  teaching_value: 3
-  research_value: 5
-  topic_popularity: 5
-  time_cost_friendliness: 2
-  documentation_quality: 4
-  authority: 5
-limitations: null
-suitable_usage: null
-evidence:
-  - https://arxiv.org/abs/2307.13854
-  - https://github.com/web-arena-x/webarena
-  - https://webarena.dev/
-  - https://github.com/web-arena-x/webarena#readme
+  - https://galileo.ai/blog/agent-evaluation-framework-metrics-rubrics-benchmarks
+  - https://o-mega.ai/articles/the-best-ai-agent-evals-and-benchmarks-full-2025-guide
+  - https://www.turingcollege.com/blog/evaluating-ai-agents-practical-guide
+  - https://benchmarkingagents.com/agent-benchmarks/
+  - https://github.com/jackjin1997/AgentBench-Live
+  - https://github.com/SanJueLogic/MeiGen-DesignAgentBench
 
 ### Benchmark 3: SWE-bench
 name: SWE-bench
@@ -291,17 +309,17 @@ research_evidence:
   research_notes: Research value=5; authority=5. Presence of paper/leaderboard/code improves research comparability.
 popularity_evidence:
   github_repository_available: true
-  github_api_status: rate_limited_or_forbidden
-  github_api_error_message: API rate limit exceeded for 66.90.98.146. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)
-  github_stars: unknown
-  github_forks: unknown
+  github_api_status: ok
+  github_api_error_message: none
+  github_stars: 4856
+  github_forks: 852
   leaderboard_or_project_available: true
-  recent_repository_activity: unknown
-  last_push_utc: unknown
+  recent_repository_activity: true
+  last_push_utc: 2026-04-01T05:16:30Z
   related_benchmarks_or_extensions:
     - SWE-bench Verified
     - Agentless
-  popularity_notes: Topic popularity score=5; stars=unknown, forks=unknown, recent_activity=unknown.
+  popularity_notes: Topic popularity score=5; stars=4856, forks=852, recent_activity=true.
 time_cost_evidence:
   quick_walkthrough_available: true
   small_demo_possible: true
@@ -357,19 +375,19 @@ evaluated_ability:
 metrics:
   - accuracy
 paper_url: https://arxiv.org/abs/2311.12983
-code_url: null
+code_url: https://github.com/Pandagan-85/React_agent_Gaia
 dataset_url: https://huggingface.co/datasets/gaia-benchmark/GAIA
 leaderboard_url: https://huggingface.co/spaces/gaia-benchmark/leaderboard
 project_url: https://huggingface.co/spaces/gaia-benchmark/leaderboard
 open_source: null
 resource_evidence:
   paper_available: true
-  code_available: false
+  code_available: true
   dataset_available: true
   leaderboard_available: true
   official_site_available: true
-  install_instructions_available: false
-  quick_walkthrough_available: false
+  install_instructions_available: true
+  quick_walkthrough_available: true
   docker_or_environment_files_available: unknown
   evidence_notes: Resource completeness score=4; evidence links include paper/code/dataset/leaderboard/readme where available.
 reproduction_evidence:
@@ -392,18 +410,18 @@ research_evidence:
   baseline_results_available: true
   research_notes: Research value=5; authority=4. Presence of paper/leaderboard/code improves research comparability.
 popularity_evidence:
-  github_repository_available: false
-  github_api_status: not_github_repo
+  github_repository_available: true
+  github_api_status: ok
   github_api_error_message: none
-  github_stars: unknown
-  github_forks: unknown
+  github_stars: 1
+  github_forks: 0
   leaderboard_or_project_available: true
-  recent_repository_activity: unknown
-  last_push_utc: unknown
+  recent_repository_activity: false
+  last_push_utc: 2025-06-18T11:31:30Z
   related_benchmarks_or_extensions: []
-  popularity_notes: Topic popularity score=4; stars=unknown, forks=unknown, recent_activity=unknown.
+  popularity_notes: Topic popularity score=4; stars=1, forks=0, recent_activity=false.
 time_cost_evidence:
-  quick_walkthrough_available: false
+  quick_walkthrough_available: true
   small_demo_possible: true
   full_evaluation_cost: medium
   estimated_demo_time: 1-2_days
@@ -411,14 +429,14 @@ time_cost_evidence:
   time_cost_notes: Time friendliness=3; reproduction difficulty=3.
 documentation_evidence:
   readme_quality: high
-  installation_steps_available: false
+  installation_steps_available: true
   examples_available: true
   evaluation_instructions_available: likely
   documentation_notes: Documentation quality score=4; README and project docs links are used as evidence.
 authority_evidence:
   paper_available: true
   official_project_site: true
-  official_github_repository: false
+  official_github_repository: true
   leaderboard_available: true
   authority_notes: Authority score=4; based on availability of paper/repo/project/leaderboard.
 resource_completeness: 4
@@ -444,6 +462,8 @@ evidence:
   - https://arxiv.org/abs/2311.12983
   - https://huggingface.co/datasets/gaia-benchmark/GAIA
   - https://huggingface.co/spaces/gaia-benchmark/leaderboard
+  - https://github.com/Pandagan-85/React_agent_Gaia
+  - https://github.com/pradeepdas/gaia-agentbeats
 
 ### Benchmark 5: OSWorld
 name: OSWorld
@@ -493,15 +513,15 @@ research_evidence:
   research_notes: Research value=5; authority=4. Presence of paper/leaderboard/code improves research comparability.
 popularity_evidence:
   github_repository_available: true
-  github_api_status: rate_limited_or_forbidden
-  github_api_error_message: API rate limit exceeded for 66.90.98.146. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)
-  github_stars: unknown
-  github_forks: unknown
+  github_api_status: ok
+  github_api_error_message: none
+  github_stars: 2828
+  github_forks: 450
   leaderboard_or_project_available: true
-  recent_repository_activity: unknown
-  last_push_utc: unknown
+  recent_repository_activity: true
+  last_push_utc: 2026-05-07T02:47:31Z
   related_benchmarks_or_extensions: []
-  popularity_notes: Topic popularity score=4; stars=unknown, forks=unknown, recent_activity=unknown.
+  popularity_notes: Topic popularity score=4; stars=2828, forks=450, recent_activity=true.
 time_cost_evidence:
   quick_walkthrough_available: true
   small_demo_possible: false
@@ -592,15 +612,15 @@ research_evidence:
   research_notes: Research value=4; authority=4. Presence of paper/leaderboard/code improves research comparability.
 popularity_evidence:
   github_repository_available: true
-  github_api_status: rate_limited_or_forbidden
-  github_api_error_message: API rate limit exceeded for 66.90.98.146. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)
-  github_stars: unknown
-  github_forks: unknown
+  github_api_status: ok
+  github_api_error_message: none
+  github_stars: 5629
+  github_forks: 485
   leaderboard_or_project_available: true
-  recent_repository_activity: unknown
-  last_push_utc: unknown
+  recent_repository_activity: false
+  last_push_utc: 2025-05-21T15:46:59Z
   related_benchmarks_or_extensions: []
-  popularity_notes: Topic popularity score=4; stars=unknown, forks=unknown, recent_activity=unknown.
+  popularity_notes: Topic popularity score=4; stars=5629, forks=485, recent_activity=false.
 time_cost_evidence:
   quick_walkthrough_available: true
   small_demo_possible: true
@@ -692,16 +712,16 @@ research_evidence:
   research_notes: Research value=5; authority=5. Presence of paper/leaderboard/code improves research comparability.
 popularity_evidence:
   github_repository_available: true
-  github_api_status: rate_limited_or_forbidden
-  github_api_error_message: API rate limit exceeded for 66.90.98.146. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)
-  github_stars: unknown
-  github_forks: unknown
+  github_api_status: ok
+  github_api_error_message: none
+  github_stars: 986
+  github_forks: 123
   leaderboard_or_project_available: true
-  recent_repository_activity: unknown
-  last_push_utc: unknown
+  recent_repository_activity: false
+  last_push_utc: 2025-11-05T00:38:41Z
   related_benchmarks_or_extensions:
     - WebArena
-  popularity_notes: Topic popularity score=4; stars=unknown, forks=unknown, recent_activity=unknown.
+  popularity_notes: Topic popularity score=4; stars=986, forks=123, recent_activity=false.
 time_cost_evidence:
   quick_walkthrough_available: true
   small_demo_possible: false
@@ -793,17 +813,17 @@ research_evidence:
   research_notes: Research value=5; authority=4. Presence of paper/leaderboard/code improves research comparability.
 popularity_evidence:
   github_repository_available: true
-  github_api_status: rate_limited_or_forbidden
-  github_api_error_message: API rate limit exceeded for 66.90.98.146. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)
-  github_stars: unknown
-  github_forks: unknown
+  github_api_status: ok
+  github_api_error_message: none
+  github_stars: 413
+  github_forks: 42
   leaderboard_or_project_available: true
-  recent_repository_activity: unknown
-  last_push_utc: unknown
+  recent_repository_activity: false
+  last_push_utc: 2024-05-20T13:44:42Z
   related_benchmarks_or_extensions:
     - AgentBench
     - ToolBench
-  popularity_notes: Topic popularity score=3; stars=unknown, forks=unknown, recent_activity=unknown.
+  popularity_notes: Topic popularity score=3; stars=413, forks=42, recent_activity=false.
 time_cost_evidence:
   quick_walkthrough_available: true
   small_demo_possible: true

@@ -72,27 +72,21 @@ def call_llm(
     if model is None:
         model = os.environ.get("MINIMAX_MODEL", "MiniMax-M2.7")
 
-    # 构建消息
-    messages = []
-    if system:
-        # Anthropic 不支持独立的 system 消息，需要在 user 消息前拼接
-        messages.append({"role": "user", "content": f"{system}\n\n{prompt}"})
-    else:
-        messages.append({"role": "user", "content": prompt})
+    # 构建用户消息
+    messages = [{"role": "user", "content": prompt}]
 
     # 优先使用 Anthropic 兼容接口 (MiniMax / Anthropic)
     client = get_anthropic_client()
     if client:
-        extra_kwargs = {}
-        if json_mode:
-            extra_kwargs["response_format"] = {"type": "json_object"}
+        kwargs: dict = {
+            "model": model,
+            "max_tokens": max_tokens,
+            "messages": messages,
+        }
+        if system:
+            kwargs["system"] = system
 
-        response = client.messages.create(
-            model=model,
-            max_tokens=max_tokens,
-            messages=messages,
-            **extra_kwargs
-        )
+        response = client.messages.create(**kwargs)
 
         # 处理 thinking 输出 (MiniMax-M2.7)
         result_parts = []
@@ -107,13 +101,19 @@ def call_llm(
     # 降级到 OpenAI 兼容接口
     client = get_openai_client()
     if client:
+        # OpenAI 用 role="system" 消息
+        oai_messages = []
+        if system:
+            oai_messages.append({"role": "system", "content": system})
+        oai_messages.append({"role": "user", "content": prompt})
+
         extra_kwargs = {}
         if json_mode:
             extra_kwargs["response_format"] = {"type": "json_object"}
 
         response = client.chat.completions.create(
             model=model,
-            messages=messages,
+            messages=oai_messages,
             max_tokens=max_tokens,
             **extra_kwargs
         )

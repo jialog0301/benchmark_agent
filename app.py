@@ -1,5 +1,10 @@
 """Streamlit app for BenchmarkRadarAgent."""
 
+from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).resolve().parent / ".env")
+
 import streamlit as st
 
 from src.pipeline import run_benchmark_radar
@@ -73,7 +78,7 @@ if st.session_state.get("result"):
         # 使用 column_config 优化可视化
         st.dataframe(
             df[display_cols],
-            use_container_width=True,
+            width="stretch",
             column_config={
                 "rank": st.column_config.NumberColumn("排名"),
                 "name": st.column_config.TextColumn("Benchmark 名称", width="medium"),

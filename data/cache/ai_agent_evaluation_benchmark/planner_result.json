@@ -2,29 +2,24 @@
   "topic": "AI Agent Evaluation Benchmark",
   "mode": "课程实验",
   "search_goals": [
-    "梳理 AI Agent Evaluation Benchmark 相关 benchmark 的代表性候选",
-    "收集每个 benchmark 的论文、代码、数据集和 leaderboard 入口",
-    "总结各 benchmark 的评测任务、能力维度和关键指标",
-    "比较资源完整度、文档质量与复现门槛",
-    "提炼适用于后续结构化抽取的证据链接集合",
-    "评估各候选 benchmark 的教学价值与课堂可讲解性",
-    "比较资源完整度（文档、代码、数据、示例）",
-    "判断复现友好度和环境部署复杂度"
+    "了解当前主流的AI Agent评估基准及其评价指标",
+    "获取用于课程实验的AI Agent评估基准的完整资源（代码、数据集、文档）",
+    "评估不同基准的易用性、再现性和教学价值",
+    "比较基准在时间成本和资源需求方面的差异",
+    "寻找适合学生实验的快速上手和可复现的基准项目"
   ],
   "search_queries": [
-    "AI Agent Evaluation Benchmark benchmark paper GitHub leaderboard",
-    "AI Agent Evaluation Benchmark evaluation benchmark dataset metrics",
-    "AI Agent Evaluation Benchmark benchmark survey comparison",
-    "AI Agent Evaluation Benchmark GitHub open source implementation",
-    "AI Agent Evaluation Benchmark arxiv benchmark 2024 2025",
-    "AI Agent Evaluation Benchmark teaching friendly benchmark tutorial reproducibility",
-    "AI Agent Evaluation Benchmark benchmark documentation setup guide student project",
-    "AI Agent Evaluation Benchmark benchmark quick demo time cost reproducible experiment"
+    "AI agent evaluation benchmark reproducibility course experiment GitHub dataset metrics",
+    "AI agent benchmark teaching value assignment lab resources open source",
+    "comparison of AI agent evaluation benchmarks leaderboard metrics reproducibility",
+    "AI agent evaluation benchmark quickstart guide for course lab assignment",
+    "AI agent benchmark dataset availability and documentation for teaching"
   ],
   "expected_outputs": [
-    "Benchmark candidate list with evidence links",
-    "Structured fields for extractor (task, metric, urls, resource clues)",
-    "初步的资源完整度与复现难度判断依据",
-    "可供后续评分模块使用的事实型调研摘要"
+    "列出主流AI Agent评估基准及其官方GitHub仓库和数据集链接",
+    "提供每个基准的评价指标、再现步骤和教学资源完整度评估",
+    "比较不同基准在实验时间、资源需求和易用性方面的差异",
+    "给出适合课程实验的基准推荐列表及其快速上手指南",
+    "总结各基准的 reproducibility 评分和教学价值评估"
   ]
 }
